@@ -1,0 +1,21 @@
+.Header {
+    align-items: center;
+    height: 100px;
+    padding: 20px;
+    font-family: "Karla";
+}
+
+#headerGreeting {
+    padding: 20px;
+    font-weight: bold;
+    align-items: center;
+}
+
+#headerWordmark {
+    align-content: center;
+    padding: 20px;
+}
+
+#headerWordmark span img {
+    height: 30px;
+}
