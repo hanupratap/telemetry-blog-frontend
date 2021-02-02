@@ -1,0 +1,21 @@
+.Container404 {
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    flex: 1 0 auto;
+}
+
+#text404 {
+    padding: 20px;
+    text-align: center;
+    align-items: center;
+}
+
+#text404 h1 {
+    font-family: "Karla";
+    font-size: 16pt;
+}
+
+#image404 {
+    height: 350px;
+}

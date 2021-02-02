@@ -10,8 +10,9 @@ const signin = (props) => {
 			</Col>
 			<Col lg={6} md={6} sm={12} id="signinform" className="text-center">
 				<form>
-					<input type="email" name="email" placeholder="support@telemetryblog.in"/><br></br>
-					<input type="submit" value="Sign me in." />
+					<input type="email" name="email" placeholder="support@telemetryblog.in" id="emailTextBox"/><br></br>
+					<input type="submit" id="signInBtn" value="Sign me in." onClick={props.onLoginFunc}/>
+					<input type="submit" id="signUpBtn" value="Sign me up." />
 				</form>
 			</Col>
 		</Row>

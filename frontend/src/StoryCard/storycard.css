@@ -1,0 +1,33 @@
+.StoryCard {
+    border-width: 1px;
+    padding: 20px 0px;
+}
+
+.storyTitle {
+    margin: 0px 20px;
+    font-family: "EB Garamond";
+    font-size: 16pt;
+    font-weight: bold;
+}
+
+.storySubtitle {
+    margin: 0px 20px;
+    font-family: "Karla";
+    font-size: 12pt;
+}
+
+.StoryOptions {
+    padding: 5px;
+    color: #0a537B;
+    text-decoration: none;
+    transition: color 0.15s linear;
+}
+
+.StoryOptions:hover {
+    text-decoration: none;
+    color: #0A537B;
+}
+
+#deleteStoryLink:hover {
+    color: red;
+}
