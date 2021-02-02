@@ -1,0 +1,59 @@
+.SignUp {
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    font-family: "Karla";
+    flex: 1 0 auto;
+    height: 100%;
+}
+
+/* #signinillustration {
+
+} */
+
+#signupillustration img {
+    height: 350px;
+}
+
+#signupform {
+    padding: 20px;
+    font-weight: bold;
+    align-items: center;
+}
+
+.DetailsTextBox {
+    margin: 5px;
+    text-decoration: none;
+    height: 40px;
+    width: 300px;
+    background: #f2f2f2;
+    color: #535353;
+    border: none;
+    border-radius: 5px;
+    text-align: center;
+    transition: all 0.5s linear;
+    border: 2px solid #ffffff00;
+}
+
+.DetailsTextBox::placeholder {
+    color: #7a7a7a88;
+}
+
+.DetailsTextBox:focus {
+    outline: none !important;
+    border: 2px solid #0A537B;
+}
+
+#signUpBtn {
+    margin: 5px;
+    text-decoration: none;
+    height: 40px;
+    width: 300px;
+    background: #1f1f1f;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: bold;
+    box-shadow: 0px 2px 5px #00000060;
+}

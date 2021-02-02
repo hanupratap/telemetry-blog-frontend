@@ -1,6 +1,13 @@
 .StoryCard {
     border-width: 1px;
     padding: 20px 0px;
+    margin: 10px;
+    align-items: center;
+}
+
+.StoryEditControlsContainer {
+    min-height: 1.5em;
+    align-items: center;
 }
 
 .storyTitle {
@@ -29,5 +36,5 @@
 }
 
 #deleteStoryLink:hover {
-    color: red;
+    color: #ff6161;
 }

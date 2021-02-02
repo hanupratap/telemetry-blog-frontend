@@ -12,14 +12,14 @@ const storycard = (props) => {
             <Row>
                 <span className="storySubtitle">{props.story.subtitle}</span>
             </Row>
-            <Row>
-                <Col lg={3} md={3} sm={12} xs={12} className="text-left">
+            <Row className="StoryEditControlsContainer">
+                <Col lg={1} md={1} sm={12} xs={12} className="text-left">
                     <a href="" id="editStoryLink" className="StoryOptions">Edit</a>
                 </Col>
-                <Col lg={3} md={3} sm={12} xs={12}>
+                <Col lg={2} md={2} sm={12} xs={12} className="text-md-center text-sm-left">
                     <a href="" id="unpublishStoryLink" className="StoryOptions">Unpublish</a>
                 </Col>
-                <Col lg={3} md={3} sm={12} xs={12}>
+                <Col lg={1} md={1} sm={12} xs={12} className="text-md-right text-sm-left">
                     <a href="" id="deleteStoryLink" className="StoryOptions">Delete</a>
                 </Col>
             </Row>

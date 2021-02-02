@@ -1,6 +1,7 @@
 import './App.css';
 import Header from './Header/Header';
 import SignIn from './SignIn/SignIn';
+import SignUp from './SignUp/SignUp';
 import Footer from './Footer/Footer';
 import Stories from './Stories/Stories';
 import Page404 from './404Page/404';
@@ -15,10 +16,12 @@ function App() {
 	return (
 		<div className="App">
 			<Container fluid>
-				<Header></Header>
-				<SignIn onLoginFunc={signInAttempt}></SignIn>
-				<Page404></Page404>
-				<Footer></Footer>
+				<Header />
+				<SignIn onLoginFunc={signInAttempt} />
+				<SignUp onLoginFunc={signInAttempt} />
+				<Stories />
+				<Page404 />
+				<Footer />
 			</Container>
 		</div>
 	);
