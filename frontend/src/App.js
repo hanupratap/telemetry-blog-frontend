@@ -5,8 +5,8 @@ import SignUp from './SignUp/SignUp';
 import Footer from './Footer/Footer';
 import Stories from './Stories/Stories';
 import Page404 from './404Page/404';
-import { Row, Col, Container } from 'react-bootstrap';
-import axios from "axios";
+import {  Container } from 'react-bootstrap';
+// import axios from "axios";
 
 const signInAttempt = async () => {
 	alert("You're trying to sign in but nothing's set up yet dumdum!");

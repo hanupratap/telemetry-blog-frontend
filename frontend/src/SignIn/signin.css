@@ -16,12 +16,16 @@
 }
 
 #signinform {
+    padding-top: 100px;
+    min-height: 300px;
     padding: 20px;
     font-weight: bold;
     align-items: center;
+    justify-content: center;
 }
 
-#emailTextBox {
+.DetailsTextBox {
+    align-self: center;
     margin: 5px;
     text-decoration: none;
     height: 40px;
@@ -31,20 +35,20 @@
     border: none;
     border-radius: 5px;
     text-align: center;
-    transition: all 0.5s linear;
+    transition: all 0.125s ease-in;
     border: 2px solid #ffffff00;
 }
 
-#emailTextBox::placeholder {
+.DetailsTextBox::placeholder {
     color: #7a7a7a88;
 }
 
-#emailTextBox:focus {
+.DetailsTextBox:focus {
     outline: none !important;
     border: 2px solid #0A537B;
 }
 
-#signInBtn {
+.FormBtn {
     margin: 5px;
     text-decoration: none;
     height: 40px;
@@ -58,16 +62,32 @@
     box-shadow: 0px 2px 5px #00000060;
 }
 
+#signInBtn {
+    background: #0A537B;
+}
+
 #signUpBtn {
-    margin: 5px;
-    text-decoration: none;
-    height: 40px;
-    width: 300px;
     background: #1f1f1f;
-    color: #ffffff;
-    border: none;
-    border-radius: 5px;
-    text-align: center;
-    font-weight: bold;
-    box-shadow: 0px 2px 5px #00000060;
+}
+
+#errorMessage {
+    padding: 0px 5px;
+    width: 300px;
+    color: #FF6161;
+    font-size: 9pt;
+    font-weight: normal;
+    transition: display 0.25s linear;
+}
+
+.errorHidden {
+    visibility: hidden;
+}
+
+.errorShown {
+    visibility: visible;
+}
+
+.errorHighlighted {
+    outline: none !important;
+    border: 2px solid red;
 }

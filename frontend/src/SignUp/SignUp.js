@@ -1,5 +1,5 @@
 import React from 'react';
-import { Col, Row, Image } from 'react-bootstrap';
+import { Col, Row } from 'react-bootstrap';
 import './signup.css';
 
 const signup = (props) => {
@@ -14,7 +14,7 @@ const signup = (props) => {
 						<input type="email" name="email" placeholder="support@telemetryblog.in" id="emailTextBox" className="DetailsTextBox" />
 						<input type="text" name="bio" placeholder="Tell us about you." id="bioTextBox" className="DetailsTextBox"/>
 						<input type="text" name="twitter" placeholder="Are you on @twitter?" id="socailTextBox" className="DetailsTextBox"/>
-						<input type="submit" id="signUpBtn" value="Sign me up." onClick={props.onLoginFunc} />
+						<input type="submit" className="FormBtn" id="signUpBtn" value="Sign me up." onClick={props.onLoginFunc} />
 				</form>
 			</Col>
 		</Row>

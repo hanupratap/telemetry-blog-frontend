@@ -1,16 +1,21 @@
 .StoriesContainer {
-    margin: 20px;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+.ContainerHeader {
+    align-items: center;
 }
 
 #ContainerHeaderText {
     background: none;
-    padding: 20px;
+    /* padding: 20px; */
     font-family: "Karla";
-    font-size: 24pt;
+    font-size: 30pt;
+    font-weight: bold;
 }
 
 #newStoryBtn {
-    margin: 20px;
     text-decoration: none;
     height: 40px;
     width: 300px;

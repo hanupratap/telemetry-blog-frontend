@@ -12,7 +12,7 @@
 
 .storyTitle {
     margin: 0px 20px;
-    font-family: "EB Garamond";
+    font-family: "Karla";
     font-size: 16pt;
     font-weight: bold;
 }
@@ -21,6 +21,7 @@
     margin: 0px 20px;
     font-family: "Karla";
     font-size: 12pt;
+    color: #7a7a7a;
 }
 
 .StoryOptions {

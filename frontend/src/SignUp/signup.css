@@ -7,7 +7,7 @@
     height: 100%;
 }
 
-/* #signinillustration {
+/* #signupillustration {
 
 } */
 
@@ -31,7 +31,7 @@
     border: none;
     border-radius: 5px;
     text-align: center;
-    transition: all 0.5s linear;
+    transition: 0.055s ease-in;
     border: 2px solid #ffffff00;
 }
 
@@ -42,18 +42,4 @@
 .DetailsTextBox:focus {
     outline: none !important;
     border: 2px solid #0A537B;
-}
-
-#signUpBtn {
-    margin: 5px;
-    text-decoration: none;
-    height: 40px;
-    width: 300px;
-    background: #1f1f1f;
-    color: #ffffff;
-    border: none;
-    border-radius: 5px;
-    text-align: center;
-    font-weight: bold;
-    box-shadow: 0px 2px 5px #00000060;
 }

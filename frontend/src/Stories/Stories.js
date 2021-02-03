@@ -3,7 +3,6 @@ import './stories.css';
 import StoryCard from '../StoryCard/StoryCard';
 import axios from 'axios';
 import { Row, Col, Container } from "react-bootstrap";
-import { render } from "@testing-library/react";
 
 class Stories extends Component {
     state = {
@@ -24,16 +23,18 @@ class Stories extends Component {
     render() {
         return (
             <Container fluid className="StoriesContainer">
-                <Row>
-                    <span id="ContainerHeaderText">Your Stories</span>
-                </Row>
-                <Row>
-                    <input type="submit" value="Inspired? Start a new story." id="newStoryBtn"></input>
+                <Row className="ContainerHeader">
+                    <Col lg={6} md={6} sm={12} className="text-md-left text-sm-center text-xs-center">
+                        <span id="ContainerHeaderText">Your Stories</span>
+                    </Col>
+                    <Col lg={6} md={6} sm={12} className="text-md-right text-sm-center text-xs-center">
+                        <input type="submit" value="Inspired? Start a new story." id="newStoryBtn"></input>
+                    </Col>
                 </Row>
                 <Row >
                     {this.state.stories.map((story) => {
                         return (
-                            <StoryCard story={story.content} />
+                            <StoryCard story={story.content} key={story._id}/>
                         )
                     })}
                 </Row>
