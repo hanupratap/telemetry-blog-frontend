@@ -6,6 +6,8 @@ import Footer from './Footer/Footer';
 import Stories from './Stories/Stories';
 import Page404 from './404Page/404';
 import {  Container } from 'react-bootstrap';
+import React from 'react';
+
 // import axios from "axios";
 
 const signInAttempt = async () => {
@@ -17,9 +19,9 @@ function App() {
 		<div className="App">
 			<Container fluid>
 				<Header />
-				<SignIn onLoginFunc={signInAttempt} />
-				<SignUp onLoginFunc={signInAttempt} />
 				<Stories />
+				<SignIn />
+				<SignUp />
 				<Page404 />
 				<Footer />
 			</Container>

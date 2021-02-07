@@ -24,12 +24,13 @@ class Stories extends Component {
         return (
             <Container fluid className="StoriesContainer">
                 <Row className="ContainerHeader">
-                    <Col lg={6} md={6} sm={12} className="text-md-left text-sm-center text-xs-center">
-                        <span id="ContainerHeaderText">Your Stories</span>
+                    <Col lg={6} md={6} sm={12} className=" text-left text-lg-left text-md-left text-sm-left">
+                        <span id="ContainerHeaderText">Your stories.</span>
                     </Col>
-                    <Col lg={6} md={6} sm={12} className="text-md-right text-sm-center text-xs-center">
+                    <Col lg={6} md={6} sm={12} className="text-left text-lg-right text-md-right text-sm-left">
                         <input type="submit" value="Inspired? Start a new story." id="newStoryBtn"></input>
                     </Col>
+                    <hr></hr>
                 </Row>
                 <Row >
                     {this.state.stories.map((story) => {

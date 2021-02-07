@@ -5,21 +5,23 @@
 
 .ContainerHeader {
     align-items: center;
+    padding-bottom: 10px
 }
 
 #ContainerHeaderText {
+    /* border-bottom: 2px solid #0a537b; */
     background: none;
-    /* padding: 20px; */
+    padding: 10px;
     font-family: "Karla";
     font-size: 30pt;
-    font-weight: bold;
+    letter-spacing: -3px;
 }
 
 #newStoryBtn {
     text-decoration: none;
     height: 40px;
     width: 300px;
-    background: #0A537B;
+    background: #0a537b;
     color: #ffffff;
     border: none;
     border-radius: 5px;

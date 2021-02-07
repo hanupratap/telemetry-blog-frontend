@@ -7,6 +7,7 @@
     height: 100%;
 }
 
+
 /* #signupillustration {
 
 } */
@@ -21,7 +22,31 @@
     align-items: center;
 }
 
-.DetailsTextBox {
+#signUpBtn {
+    background: #1f1f1f;
+}
+
+.DetailsTextBox.dtbError {
+    border: 2px solid #FF6161;
+}
+
+.statusText {
+    color: #1f1f1f;
+    font-size: 9pt;
+    width: 300px;
+}
+
+.show {
+    visibility: visible;
+    color: #FF6161;
+}
+
+.hide {
+    visibility: hidden;
+}
+
+
+/* .DetailsTextBox {
     margin: 5px;
     text-decoration: none;
     height: 40px;
@@ -42,4 +67,4 @@
 .DetailsTextBox:focus {
     outline: none !important;
     border: 2px solid #0A537B;
-}
+} */

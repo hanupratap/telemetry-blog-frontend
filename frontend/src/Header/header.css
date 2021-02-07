@@ -1,12 +1,12 @@
 .Header {
     align-items: center;
-    min-height: 100px;
+    min-height: 5vh;
     padding: 20px;
     font-family: "Karla";
 }
 
 #headerGreeting {
-    padding: 20px;
+    padding: 10px 20px;
     font-weight: bold;
     align-items: center;
 }
@@ -18,4 +18,8 @@
 
 #headerWordmark span img {
     height: 30px;
+}
+
+#headerImage {
+    border: none;
 }

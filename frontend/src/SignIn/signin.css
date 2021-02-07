@@ -7,6 +7,7 @@
     height: 100%;
 }
 
+
 /* #signinillustration {
 
 } */
@@ -24,70 +25,27 @@
     justify-content: center;
 }
 
-.DetailsTextBox {
-    align-self: center;
-    margin: 5px;
-    text-decoration: none;
-    height: 40px;
-    width: 300px;
-    background: #f2f2f2;
-    color: #535353;
-    border: none;
-    border-radius: 5px;
-    text-align: center;
-    transition: all 0.125s ease-in;
-    border: 2px solid #ffffff00;
-}
-
-.DetailsTextBox::placeholder {
-    color: #7a7a7a88;
-}
-
-.DetailsTextBox:focus {
-    outline: none !important;
-    border: 2px solid #0A537B;
-}
-
-.FormBtn {
-    margin: 5px;
-    text-decoration: none;
-    height: 40px;
-    width: 300px;
-    background: #0a537b;
-    color: #ffffff;
-    border: none;
-    border-radius: 5px;
-    text-align: center;
-    font-weight: bold;
-    box-shadow: 0px 2px 5px #00000060;
-}
-
 #signInBtn {
     background: #0A537B;
 }
 
-#signUpBtn {
-    background: #1f1f1f;
+
+
+.DetailsTextBox.dtbError {
+    border: 2px solid #FF6161;
 }
 
-#errorMessage {
-    padding: 0px 5px;
-    width: 300px;
-    color: #FF6161;
+.statusText {
+    color: #1f1f1f;
     font-size: 9pt;
-    font-weight: normal;
-    transition: display 0.25s linear;
+    width: 300px;
 }
 
-.errorHidden {
-    visibility: hidden;
-}
-
-.errorShown {
+.show {
     visibility: visible;
+    color: #FF6161;
 }
 
-.errorHighlighted {
-    outline: none !important;
-    border: 2px solid red;
+.hide {
+    visibility: hidden;
 }
