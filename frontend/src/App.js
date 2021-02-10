@@ -1,10 +1,10 @@
 import './App.css';
-import Header from './Header/Header';
-import SignIn from './SignIn/SignIn';
-import SignUp from './SignUp/SignUp';
-import Footer from './Footer/Footer';
-import Stories from './Stories/Stories';
-import Page404 from './404Page/404';
+import Header from './Components/Header/Header';
+import SignIn from './Components/SignIn/SignIn';
+import SignUp from './Components/SignUp/SignUp';
+import Footer from './Components/Footer/Footer';
+import Stories from './Components/Stories/Stories';
+import Page404 from './Components/404Page/404';
 import {  Container } from 'react-bootstrap';
 import React from 'react';
 
