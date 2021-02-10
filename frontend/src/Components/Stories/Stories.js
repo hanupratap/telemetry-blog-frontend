@@ -9,15 +9,14 @@ class Stories extends Component {
         stories: []
     }
 
-    getStories = async () => {
-        const stories = await axios.get('http://localhost:4000/api/user/get/6014507547ebb658d4e80d2d/stories');
-        return (stories.data);
-    }
-
-    componentDidMount = async () => {
-        const retrievedStories = await this.getStories();
-        this.setState({ stories: retrievedStories });
-        console.log("state", this.state);
+    componentDidMount = () => {
+        axios.get('http://localhost:4000/api/user/get/6014507547ebb658d4e80d2d/stories')
+            .then(storiesRes => {
+                this.setState({stories: storiesRes});
+            })
+            .catch(err => {
+                alert("An error occured in retrieving the user's Stories. Try again in a bit!");
+            })
     };
 
     render() {
