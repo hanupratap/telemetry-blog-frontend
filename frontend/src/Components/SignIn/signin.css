@@ -1,51 +1,53 @@
 .SignIn {
     align-items: center;
-    height: 100vh;
+    justify-content: space-around;
+    min-height: 100vh;
     padding: 20px;
     font-family: "Karla";
     flex: 1 0 auto;
-    height: 100%;
 }
 
-
-/* #signinillustration {
-
-} */
-
-#signinillustration img {
-    height: 350px;
-}
-
-#signinform {
-    padding-top: 100px;
-    min-height: 300px;
+.IllustrationPanel {
+    min-height: 80vh;
     padding: 20px;
-    font-weight: bold;
     align-items: center;
     justify-content: center;
 }
 
-#signInBtn {
-    background: #0A537B;
+.Illustration {
+    height: 350px;
 }
 
-
-
-.DetailsTextBox.dtbError {
-    border: 2px solid #FF6161;
+.ContentPanel {
+    align-self: center;
+    padding: 20px;
 }
 
-.statusText {
-    color: #1f1f1f;
-    font-size: 9pt;
+input[type="submit"] {
+    text-decoration: none;
     width: 300px;
+    height: 40px;
+    color: #ffffff;
+    font-weight: bold;
+    background: #0A537B;
+    box-shadow: 0px 2px 5px #00000060;
+    
 }
 
-.show {
-    visibility: visible;
-    color: #FF6161;
+.FormBtn {
+    margin: 5px;
+    text-decoration: none;
+    height: 40px;
+    width: 300px;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: bold;
+    box-shadow: 0px 2px 5px #00000060;
 }
 
-.hide {
-    visibility: hidden;
+.FormBtn:focus {
+    outline: none !important;
 }
+

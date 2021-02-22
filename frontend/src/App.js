@@ -5,8 +5,11 @@ import SignUp from './Components/SignUp/SignUp';
 import Footer from './Components/Footer/Footer';
 import Stories from './Components/Stories/Stories';
 import Page404 from './Components/404Page/404';
-import {  Container } from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
 import React from 'react';
+import Router, { Switch } from 'react-router';
+import { BrowserRouter } from 'react-router-dom';
+import { Route } from 'react-router-dom'
 
 // import axios from "axios";
 
@@ -19,10 +22,20 @@ function App() {
 		<div className="App">
 			<Container fluid>
 				<Header />
-				<Stories />
 				<SignIn />
 				<SignUp />
-				<Page404 />
+				{/* <BrowserRouter>
+					<Switch>
+						<Route path="/404" exact>
+							<Page404 />
+						</Route>
+						<Route path="/signin">
+						</Route>
+						<Route path="/signup">
+							<SignUp />
+						</Route>
+					</Switch>
+				</BrowserRouter> */}
 				<Footer />
 			</Container>
 		</div>

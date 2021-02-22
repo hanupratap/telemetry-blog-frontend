@@ -1,86 +1,184 @@
 import React from 'react';
-import { Col, Row, Toast } from 'react-bootstrap';
+import { Row, Col } from 'react-bootstrap';
+import Input from '../Input/Input';
+import _ from 'lodash';
 import './signin.css';
-
-import Axios from 'axios';
+import Toast from 'react-bootstrap/Toast'
 import axios from 'axios';
-import { render } from '@testing-library/react';
 
-class SignIn extends React.Component {
+/*
+	The state in this component manages the form as a controlled component,
+	and also other functions like form validation, etc.
+
+	The signInForm object contains all input fields and their validations,
+	the loading property is toggled on 'successful' form submits (when all validations pass),
+	and the errors object is populated with the 
+*/
+
+class SignInForm extends React.Component {
 	constructor(props) {
 		super(props);
 	}
 
+
 	state = {
-		email: "",
-		status: false,
-		res: "",
+		signInForm: {
+			email: {
+				type: "email",
+				placeholder: "support@telemetryblog.in",
+				value: '',
+				validations: {
+					required: true,
+					min: 5,
+					max: 30
+				},
+			},
+		},
 		loading: false,
-		noUser: true
+		errors: {},
+	}
+
+	// run this everytime a keystroke is recorded, 
+	// for that particular element;
+	inputChangeHandler = (event) => {
+		const inputIdentifier = event.target.id;
+		const updatedSignInForm = {
+			...this.state.signInForm,
+		}
+		const updatedElement = {
+			...updatedSignInForm[inputIdentifier]
+		}
+		updatedElement.value = event.target.value;
+		updatedSignInForm[inputIdentifier] = updatedElement;
+
+		this.setState({ signInForm: updatedSignInForm, errors: {} });
+	}
+
+	// handling form submission and validations;
+	onSubmitHandler = async () => {
+		this.setState({ loading: true });
+
+		const formData = {};
+		for (let element in this.state.signInForm) {
+			formData[element] = this.state.signInForm[element].value;
+		}
+
+		const validationErrors = this.checkValidations(formData);
+		if (validationErrors) {
+			this.setState({ errors: validationErrors });
+		} else {
+			this.triggerSignIn(formData);
+		}
+	}
+
+	checkValidations(formData) {
+		const errors = this.state.errors;
+
+		for (let element in formData) {
+			const rules = this.state.signInForm[element].validations;
+			for (let rule in rules) {
+				if (rule == "required") {
+					errors[element] = (
+						this.state.signInForm[element].value.length > 0
+							? `The ${element} is required.`
+							: undefined
+					)
+				}
+
+				if (rule == "min") {
+					errors[element] = (
+						this.state.signInForm[element].value.length < parseInt(rules[rule])
+							? `The ${element} must be at least ${rules[rule]} characters long.`
+							: undefined
+					)
+				}
+
+				if (rule == "max") {
+					errors[element] = (
+						this.state.signInForm[element].value.length > parseInt(rules[rule])
+							? `The ${element} must be lesser than ${rules[rule]} characters long.`
+							: undefined
+					)
+				}
+			}
+
+			if (this.state.signInForm[element].type == "email") {
+				let re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{1,}))$/;
+				if (re.test(formData[element])) {
+					continue;
+				} else {
+					errors[element] = "This email is invalid. Try another!";
+				}
+			}
+		}
+
+		if (JSON.stringify(errors) != '{}') {
+			return errors;
+		} else {
+			return null;
+		}
 	}
 
 	render = (props) => {
+		const formElements = [];
+		for (let element in this.state.signInForm) {
+			formElements.push({
+				id: element,
+				config: this.state.signInForm[element]
+			})
+		}
+
 		return (
 			<Row className="SignIn" >
-				<Col lg={6} md={6} sm={12} id="signinillustration" className="text-center text-sm-center">
-					<span><img src="/images/PeopleIllustration1.svg"></img></span >
+				<Col lg={6} md={6} sm={12} className="IllustrationPanel text-center">
+					<span><img className="Illustration" src="/images/PeopleIllustration1.svg"></img></span>
 				</Col>
-				<Col lg={6} md={6} sm={12} className="text-center">
-					<Row id="signinform" lg={12}>
-						<form>
-							<label for="email"
-								className={`text-left statusText${this.state.status == false ? ' hide' : ' show'}`}>
-								{this.state.res}
-							</label>
-							<input type="email"
-								name="email"
-								placeholder="support@telemetryblog.in"
-								id="emailTextBox"
-								value={this.state.email}
-								className={`DetailsTextBox${this.state.status == true ? " dtbError" : ""}`}
-								onChange={
-									(event) => {
-										this.setState({ email: event.target.value, status: false });
-									}
-								} />
-							<br />
-
-							<input type="submit"
-								className={`FormBtn${this.state.loading == true ? " loading" : ""}`}
-								id="signInBtn"
-								value="Sign me in."
-								disabled={this.state.loading}
-								onClick={
-									(event) => {
-										event.preventDefault();
-										this.setState({ loading: true });
-										this.triggerSignIn();
-									}
-								} />
-						</form>
-					</Row>
+				<Col lg={6} md={6} sm={12} className="ContentPanel text-center align-middle">
+					<form>
+						{formElements.map((formElement) => (
+							<Input
+								error={this.state.errors[formElement.id] == undefined ? "none" : this.state.errors[formElement.id]}
+								type={formElement.config.type}
+								value={formElement.config.value}
+								placeholder={formElement.config.placeholder}
+								key={formElement.id}
+								name={formElement.id}
+								id={formElement.id}
+								onChange={(event) => this.inputChangeHandler(event)}
+							/>
+						))}
+						<input
+							type="submit"
+							value="Sign me in."
+							className="FormBtn"
+							onClick={(event) => {
+								event.preventDefault();
+								this.onSubmitHandler();
+							}}
+						/>
+					</form>
 				</Col>
 			</Row>
 		)
 	};
 
-	triggerSignIn = async () => {
-		//validating email, return if invalid;
-		let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-		if (re.test(this.state.email)) {
-			await axios.post("http://localhost:4000/api/user/signin", { email: this.state.email })
-				.then(response => {
-					this.setState({ res: response.data, status: true, loading: false });
-				})
-				.catch(err => {
-					this.setState({ res: err.response.data, status: true, loading: false });
-				});
-			console.log(this.state.res);
-		}
-		else {
-			return this.setState({ status: true, res: "That's not a valid email address.", loading: false });
-		}
+	triggerSignIn = (formData) => {
+		this.setState({ loading: true });
+		console.log(formData);
+		axios.post("http://localhost:4000/api/user/signin", formData)
+			.then(response => {
+				alert(JSON.stringify(response.data));
+			})
+			.catch(err => {
+				console.log(JSON.stringify(err.response.data));
+				// const errors = {};
+				// for (let field in err.response.error) {
+				// 	errors[field] = err.response.error[field];
+				// }
+			});
+		this.setState({ loading: false });
+
 	}
 }
 
-export default SignIn;
+export default SignInForm;
