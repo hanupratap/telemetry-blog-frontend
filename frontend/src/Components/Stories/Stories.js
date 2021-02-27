@@ -10,33 +10,37 @@ class Stories extends Component {
     }
 
     componentDidMount = () => {
-        axios.get('http://localhost:4000/api/user/get/6014507547ebb658d4e80d2d/stories')
+        axios.get('http://localhost:4000/api/user/get/utkarshpant/stories')
             .then(storiesRes => {
-                this.setState({stories: storiesRes});
+                this.setState({ stories: storiesRes.data.data });
+                // alert(JSON.stringify(this.state.stories));
             })
             .catch(err => {
-                alert("An error occured in retrieving the user's Stories. Try again in a bit!");
+                // alert(JSON.stringify(err));
             })
     };
 
     render() {
         return (
             <Container fluid className="StoriesContainer">
-                <Row className="ContainerHeader">
+                <Row className="StoriesContainerHeader">
                     <Col lg={6} md={6} sm={12} className=" text-left text-lg-left text-md-left text-sm-left">
-                        <span id="ContainerHeaderText">Your stories.</span>
+                        <span id="ContainerHeaderText">Stories</span>
                     </Col>
                     <Col lg={6} md={6} sm={12} className="text-left text-lg-right text-md-right text-sm-left">
                         <input type="submit" value="Inspired? Start a new story." id="newStoryBtn"></input>
                     </Col>
                     <hr></hr>
                 </Row>
-                <Row >
-                    {this.state.stories.map((story) => {
-                        return (
-                            <StoryCard story={story.content} key={story._id}/>
-                        )
-                    })}
+                <Row className="StoriesContainerBody">
+                    {this.state.stories
+                        ? this.state.stories.map((story) => {
+                            return (
+                                <StoryCard story={story} key={story._id} />
+                            )
+                        })
+                        : "hehe"
+                    }
                 </Row>
             </Container>
         )

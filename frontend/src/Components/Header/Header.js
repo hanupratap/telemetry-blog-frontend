@@ -11,11 +11,15 @@ const Header = (props) => {
 
     useEffect(() => {
         const fetchUserData = async () => {
-            Axios.get("http://localhost:4000/api/user/get/601ed9638310d35dbc01997a")
+            Axios.get("http://localhost:4000/api/user/me", {
+                headers: {
+                    "x-auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDJjMDI5M2E1OTUwODIxYmNjYTdhMzAiLCJzaWduZWRJbiI6dHJ1ZSwidXNlcm5hbWUiOiJ1dGthcnNocGFudCIsImlhdCI6MTYxNDEwMTk2OX0.uf0Gz_pCAvbRIhK9hOBbExfOTRoTtwSeJaIv3-FJHnk"
+                }
+            })
                 .then(userData => {
                     // console.log(userData.data.name);
-                    console.log(userData.data.firstName);
-                    setHeaderData(userData.data);
+                    console.log(userData.data.data);
+                    setHeaderData(userData.data.data);
                 })
                 .catch(err => {
                     setHeaderData("");
@@ -28,11 +32,11 @@ const Header = (props) => {
 
     return (
         <Row className="Header">
-            <Col lg={6} md={6} sm={12} id="headerWordmark" className="text-lg-left text-md-left text-sm-left text-xs-center">
+            <Col lg={6} md={6} sm={5} id="headerWordmark" className="text-lg-left text-md-left text-sm-left text-xs-center">
                 <span><img src="/images/Wordmark.svg"></img></span>
             </Col>
-            <Col lg={6} md={6} sm={6} id="headerGreeting" className="text-left text-lg-right text-md-right text-sm-left d-none d-lg-inline d-md-inline d-sm-none">
-                {`Good morning${(headerData) ? ", " : ""}${(headerData) ? headerData.firstName : ""}!`}
+            <Col lg={6} md={6} sm={7} id="headerGreeting" className="text-left text-lg-right text-md-right text-sm-left d-inline d-lg-inline d-md-inline d-sm-inline">
+                {`Good morning!`}
             </Col>
         </Row>
     )

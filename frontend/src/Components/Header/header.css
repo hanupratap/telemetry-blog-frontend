@@ -1,8 +1,9 @@
 .Header {
+    max-width:  100vw;
     align-items: center;
     min-height: 5vh;
     padding: 20px;
-    font-family: "Karla";
+    font-family: "Cabin";
 }
 
 #headerGreeting {

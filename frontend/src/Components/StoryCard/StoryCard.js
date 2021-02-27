@@ -7,10 +7,16 @@ const storycard = (props) => {
     return (
         <Container fluid className="StoryCard">
             <Row>
-                <span className="storyTitle">{props.story.title}</span>
+                <span className="storyTitle">{props.story.content.title}</span>
             </Row>
             <Row>
-                <span className="storySubtitle">{props.story.subtitle}</span>
+                <span className="storySubtitle">{props.story.content.subtitle}</span>
+            </Row>
+            <Row className="storyTags">
+                {props.story.tags.map(tag => (
+                    <span className="storyTag">{tag}</span>
+                ))}
+                {/* {alert(JSON.stringify(props.story.tags))} */}
             </Row>
             <Row className="StoryEditControlsContainer">
                 <Col lg={1} md={1} sm={12} xs={12} className="text-left">

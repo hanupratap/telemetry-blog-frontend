@@ -10,6 +10,8 @@ import React from 'react';
 import Router, { Switch } from 'react-router';
 import { BrowserRouter } from 'react-router-dom';
 import { Route } from 'react-router-dom'
+import UserProfile from './Components/UserProfile/UserProfile';
+import Editor from './Components/Editor/Editor';
 
 // import axios from "axios";
 
@@ -22,8 +24,11 @@ function App() {
 		<div className="App">
 			<Container fluid>
 				<Header />
-				<SignIn />
-				<SignUp />
+				{/* <SignIn /> */}
+				{/* <SignUp /> */}
+				{/* <Page404 /> */}
+				<UserProfile />
+				<Editor />
 				{/* <BrowserRouter>
 					<Switch>
 						<Route path="/404" exact>

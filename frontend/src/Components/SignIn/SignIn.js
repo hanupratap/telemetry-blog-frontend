@@ -36,6 +36,7 @@ class SignInForm extends React.Component {
 		},
 		loading: false,
 		errors: {},
+		success: false
 	}
 
 	// run this everytime a keystroke is recorded, 
@@ -51,7 +52,11 @@ class SignInForm extends React.Component {
 		updatedElement.value = event.target.value;
 		updatedSignInForm[inputIdentifier] = updatedElement;
 
-		this.setState({ signInForm: updatedSignInForm, errors: {} });
+		this.setState({ 
+			signInForm: updatedSignInForm, 
+			errors: {},
+			statusText: null
+		});
 	}
 
 	// handling form submission and validations;
@@ -133,30 +138,37 @@ class SignInForm extends React.Component {
 				<Col lg={6} md={6} sm={12} className="IllustrationPanel text-center">
 					<span><img className="Illustration" src="/images/PeopleIllustration1.svg"></img></span>
 				</Col>
-				<Col lg={6} md={6} sm={12} className="ContentPanel text-center align-middle">
-					<form>
-						{formElements.map((formElement) => (
-							<Input
-								error={this.state.errors[formElement.id] == undefined ? "none" : this.state.errors[formElement.id]}
-								type={formElement.config.type}
-								value={formElement.config.value}
-								placeholder={formElement.config.placeholder}
-								key={formElement.id}
-								name={formElement.id}
-								id={formElement.id}
-								onChange={(event) => this.inputChangeHandler(event)}
+				<Col lg={6} md={6} sm={12} className="ContentPanel text-center">
+					<Row>
+						<form>
+							{formElements.map((formElement) => (
+								<Input
+									error={this.state.errors[formElement.id] == null ? "none" : this.state.errors[formElement.id]}
+									type={formElement.config.type}
+									value={formElement.config.value}
+									placeholder={formElement.config.placeholder}
+									key={formElement.id}
+									name={formElement.id}
+									id={formElement.id}
+									onChange={(event) => this.inputChangeHandler(event)}
+								/>
+							))}
+							<input
+								type="submit"
+								value="Sign me in."
+								className="FormBtn"
+								onClick={(event) => {
+									event.preventDefault();
+									this.onSubmitHandler();
+								}}
 							/>
-						))}
-						<input
-							type="submit"
-							value="Sign me in."
-							className="FormBtn"
-							onClick={(event) => {
-								event.preventDefault();
-								this.onSubmitHandler();
-							}}
-						/>
-					</form>
+						</form>
+					</Row>
+					<Row>
+						<span className={`StatusText text-left ${this.state.statusText ? " Show" : " HideLabel"}`}>
+							{this.state.statusText}
+						</span>
+					</Row>
 				</Col>
 			</Row>
 		)
@@ -168,9 +180,17 @@ class SignInForm extends React.Component {
 		axios.post("http://localhost:4000/api/user/signin", formData)
 			.then(response => {
 				alert(JSON.stringify(response.data));
+				this.setState({
+					statusText: "Check your email for the sign-in link.",
+					loading: false
+				})
 			})
 			.catch(err => {
 				console.log(JSON.stringify(err.response.data));
+				this.setState({
+					statusText: "An error occured. Try again.",
+					loading: false
+				})
 				// const errors = {};
 				// for (let field in err.response.error) {
 				// 	errors[field] = err.response.error[field];

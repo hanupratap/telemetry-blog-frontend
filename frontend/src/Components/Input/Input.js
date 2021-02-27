@@ -7,7 +7,7 @@ const Input = (props) => {
         className={`text-left ErrorText ${(props.error == "none") ? ' HideLabel' : ' Show'}`}
         id={props.id}
     >
-        {props.error}
+        {props.error == "none" ? null : props.error}
     </label>
 
     switch (props.type) {
@@ -15,13 +15,13 @@ const Input = (props) => {
             inputElement = <input className={`Input ${(props.error == "none" ? null : " Error")}`} type="email" {...props} />
             break;
         case ('textarea'):
-            inputElement = <textarea className="Input" {...props} />
+            inputElement = <textarea className={`Input ${(props.error == "none" ? null : " Error")}`} {...props} />
             break;
         case ('text'):
-            inputElement = <input className="Input" type="text" {...props} />
+            inputElement = <input className={`Input ${(props.error == "none" ? null : " Error")}`} type="text" {...props} />
             break;
         default:
-            inputElement = < input className="Input" type="text" {...props} />
+            inputElement = < input className={`Input ${(props.error == "none" ? null : " Error")}`} type="text" {...props} />
             break;
     }
 

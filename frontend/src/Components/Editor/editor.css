@@ -1,0 +1,74 @@
+.EditorContainer {
+    min-height: 80vh;
+    margin-bottom: 50vh;
+    flex-grow: 1;
+}
+
+.EditorHeader {
+    padding: 10px;
+    font-family: "Cabin";
+    font-size: 22pt;
+    font-weight: bold;
+}
+
+.Editor {
+    padding: 5px;
+}
+
+.StoryTitle {
+    padding: 20px 10px;
+    width: 80vw;
+    outline: none !important;
+    border: none;
+    font-family: "Newsreader";
+    font-size: 22pt;
+    color: black;
+    height: 5vw;
+}
+
+.StoryTitle::placeholder {
+    color: #7a7a7a80;
+}
+
+.StorySubtitle {
+    padding: 20px 10px;
+    width: 80vw;
+    outline: none !important;
+    border: none;
+    font-family: "Newsreader";
+    font-size: 18pt;
+    color: #7a7a7a;
+    height: 5vw;
+}
+
+.StorySubtitle::placeholder {
+    color: #7a7a7a80;
+}
+
+.quill {
+    width: 90vw;
+}
+
+.ql-tooltip {
+    font-family: "Cabin";
+    padding: 10px;
+    border: none;
+}
+
+.ql-container {
+    border: none;
+    height: 100vh;
+    font-family: "Newsreader";
+    font-size: 14pt;
+}
+
+blockquote {
+    font-style: italic;
+    font-size: 20pt;
+}
+
+.ql-editor.ql-blank::before {
+    font-family: "Newsreader";
+    font-style: normal;
+    color: #7a7a7a80;
+}
