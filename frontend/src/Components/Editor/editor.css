@@ -1,7 +1,6 @@
 .EditorContainer {
-    min-height: 80vh;
+    min-height: 100vh;
     margin-bottom: 50vh;
-    flex-grow: 1;
 }
 
 .EditorHeader {
@@ -47,6 +46,7 @@
 
 .quill {
     width: 90vw;
+    margin-bottom: 5vh;
 }
 
 .ql-tooltip {
@@ -62,7 +62,7 @@
     font-size: 14pt;
 }
 
-blockquote {
+.ql-editor blockquote {
     font-style: italic;
     font-size: 20pt;
 }
@@ -71,4 +71,11 @@ blockquote {
     font-family: "Newsreader";
     font-style: normal;
     color: #7a7a7a80;
+}
+
+pre.ql-syntax {
+    background: #7a7a7a40;
+    border-radius: 15px;
+    color: #303030;
+    font-family: Georgia, 'Times New Roman', Times, serif;
 }

@@ -13,10 +13,34 @@
     height: 50vh;
     align-items: flex-end;
     padding: 40px;
-    background: url("../../assets/Thur.png") no-repeat;
     background-size: auto 60vh;
     background-position: left bottom;
     background-color: #303030;
+}
+
+.HeaderRow {
+    background: linear-gradient(241deg, #355c7d, #6c5b7b, #c06c94);
+    background-size: 600% 600%;
+
+    -webkit-animation: AnimationName 36s ease infinite;
+    -moz-animation: AnimationName 36s ease infinite;
+    animation: AnimationName 36s ease infinite;
+}
+
+@-webkit-keyframes AnimationName {
+    0%{background-position:0% 18%}
+    50%{background-position:100% 83%}
+    100%{background-position:0% 18%}
+}
+@-moz-keyframes AnimationName {
+    0%{background-position:0% 18%}
+    50%{background-position:100% 83%}
+    100%{background-position:0% 18%}
+}
+@keyframes AnimationName {
+    0%{background-position:0% 18%}
+    50%{background-position:100% 83%}
+    100%{background-position:0% 18%}
 }
 
 .HeaderText {
@@ -24,6 +48,16 @@
     font-size: 38pt;
     font-weight: bold;
     background: #7a7a7a05;
+}
+
+.TwitterLink {
+    color: black;
+    text-decoration: none;
+}
+
+.TwitterLink:hover {
+    color: black;
+    text-decoration: none;
 }
 
 .AboutRow {
@@ -38,13 +72,19 @@
     padding: 20px;
 }
 
-.BioText {
-    padding: 10px;
+p.BioText {
+    /* width: 40vw; */
+    padding: 20px;
     text-align: left;
     background: #7a7a7a10;
     font-size: 14pt;
     font-family: "Newsreader";
     border-radius: 5px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-right: 30px;
+    margin-left: 30px;
+    
 }
 
 .HeaderTwitterText {

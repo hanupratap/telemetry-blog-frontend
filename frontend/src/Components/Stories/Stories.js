@@ -5,6 +5,10 @@ import axios from 'axios';
 import { Row, Col, Container } from "react-bootstrap";
 
 class Stories extends Component {
+    constructor(props) {
+        super(props);
+    }
+    
     state = {
         stories: []
     }

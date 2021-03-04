@@ -1,50 +1,66 @@
-import './App.css';
+// standard imports;
+import React, { Component } from 'react';
+import { Container } from 'react-bootstrap';
+// import { Switch } from 'react-router';
+// import { BrowserRouter } from 'react-router-dom';
+import { Route, BrowserRouter as Router, Switch } from 'react-router-dom'
+
+// component imports;
+import Page404 from './Components/404Page/404';
 import Header from './Components/Header/Header';
+import Footer from './Components/Footer/Footer';
 import SignIn from './Components/SignIn/SignIn';
 import SignUp from './Components/SignUp/SignUp';
-import Footer from './Components/Footer/Footer';
 import Stories from './Components/Stories/Stories';
-import Page404 from './Components/404Page/404';
-import { Container } from 'react-bootstrap';
-import React from 'react';
-import Router, { Switch } from 'react-router';
-import { BrowserRouter } from 'react-router-dom';
-import { Route } from 'react-router-dom'
 import UserProfile from './Components/UserProfile/UserProfile';
 import Editor from './Components/Editor/Editor';
+import { AuthProvider } from './authcontext';
+import Auth from './Components/Auth/Auth';
+import Authenticate from './Components/Authentication/Authenticate';
+import './App.css';
 
-// import axios from "axios";
+class App extends Component {
+	constructor(props) {
+		super(props);
+	}
 
-const signInAttempt = async () => {
-	alert("You're trying to sign in but nothing's set up yet dumdum!");
-}
+	componentDidMount() {
 
-function App() {
-	return (
-		<div className="App">
-			<Container fluid>
-				<Header />
-				{/* <SignIn /> */}
-				{/* <SignUp /> */}
-				{/* <Page404 /> */}
-				<UserProfile />
-				<Editor />
-				{/* <BrowserRouter>
-					<Switch>
-						<Route path="/404" exact>
-							<Page404 />
-						</Route>
-						<Route path="/signin">
-						</Route>
-						<Route path="/signup">
-							<SignUp />
-						</Route>
-					</Switch>
-				</BrowserRouter> */}
-				<Footer />
-			</Container>
-		</div>
-	);
+	}
+
+	render(props) {
+		return (
+			<div className="App">
+				<Auth>
+					<Container fluid>
+						<Header />
+						<Router>
+							<Switch>
+							<Route path="/" exact component={SignIn}>
+								</Route>
+								<Route path="/404" exact>
+									<Page404 />
+								</Route>
+								<Route path="/signin" exact>
+									<SignIn />
+								</Route>
+								<Route path="/signup" exact>
+									<SignUp />
+								</Route>
+								<Route path="/authenticate/:randomString" component={Authenticate}>
+									{/* <UserProfile /> */}
+								</Route>
+								<Route path="/:username" component={UserProfile}>
+									{/* <UserProfile /> */}
+								</Route>
+							</Switch>
+						</Router>
+						<Footer />
+					</Container>
+				</Auth>
+			</div>
+		);
+	}
 };
 
 export default App;

@@ -11,31 +11,31 @@ class Editor extends Component {
         this.handleChange = this.handleChange.bind(this);
         this.reactQuillRef = null;      //react component;
         this.quillRef = null;           //quill instance reference;
-    }
+    };
 
     state = {
         storyTitle: "",
         storySubtitle: "",
         storyBody: ""
-    }
+    };
 
     handleChange(content, delta, source, editor) {
-        this.setState({...this.state, storyBody: content });
-    }
+        this.setState({storyBody: content });
+    };
 
     componentDidMount() {
         this.attachQuillRef();
         this.quillRef.focus();
-    }
+    };
 
     componentDidUpdate() {
         this.attachQuillRef();
-    }
+    };
 
     attachQuillRef = () => {
         if (typeof this.reactQuillRef.getEditor !== 'function') return;
         this.quillRef = this.reactQuillRef.getEditor();
-    }
+    };
 
     render() {
         return (
@@ -48,7 +48,7 @@ class Editor extends Component {
                         placeholder="Give your story a title...."
                         onChange={(event) => {
                             event.preventDefault();
-                            this.setState({ ...this.state, storyTitle: event.target.value });
+                            this.setState({ storyTitle: event.target.value });
                             console.log(this.state);
                         }} />
                         <input
@@ -58,7 +58,7 @@ class Editor extends Component {
                         placeholder="and an optional subtitle."
                         onChange={(event) => {
                             event.preventDefault();
-                            this.setState({ ...this.state, storySubtitle: event.target.value });
+                            this.setState({ storySubtitle: event.target.value });
                             console.log(this.state);
                         }} />
                 </Row>
@@ -75,10 +75,12 @@ class Editor extends Component {
                             {
                                 toolbar: [
                                     [{ 'header': [1, 2, 3, 4, false] }],
-                                    ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+                                    ['bold', 'italic', 'underline', 'strike', 'blockquote', 'code-block'],
+                                    [{'script': 'sub'}, {'script': 'super'}],
                                     [{ 'list': 'ordered' }, { 'list': 'bullet' }, { 'indent': '-1' }, { 'indent': '+1' }],
-                                    ['link', 'image'],
-                                    ['clean']
+                                    ['link', 'image', 'video'],
+                                    ['clean'],
+                                    [{ 'align': [] }]
                                 ]
                             }
                         }

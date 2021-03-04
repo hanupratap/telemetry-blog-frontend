@@ -3,7 +3,8 @@
     align-items: center;
     font-family: "Newsreader";
     border-bottom: 1px dashed #0A537B;
-    background: #7a7a7a05;
+    border-radius: 10px;
+    background: #7a7a7a10;
 }
 
 .StoryEditControlsContainer {
