@@ -15,41 +15,38 @@ import './authenticate.css';
     The data (username) to be set in the context is passed down as a prop.
 */
 class Authenticate extends Component {
+    static contextType = AuthContextType;
     constructor(props) {
         super(props);
         this.randomString = this.props.match.params.randomString;
         this.email = new URLSearchParams(this.props.location.search).get('email');
-        // this.email = query.entries()[1];
-        console.log("Email", this.email);
     }
 
-
-    static contextType = AuthContextType;
-
     componentDidMount(props) {
-        const ctxt = this.context;
+        console.log("this.context in authenticate:\t", this.context);
         axios.get(`http://localhost:4000/api/user/authenticate/${this.randomString}?email=${this.email}`)
             .then(response => {
-                console.log("Response", response);
-                const username = response.data.data.username;
+                console.log("User data:\t", response.data.data);
+                const user = response.data.data;
                 const role = response.data.role;
                 const token = response.data.token;
-                ctxt.setUserData({
-                    username: username,
+                this.context.setUserData({
+                    // username: username,
+                    user: JSON.stringify(user),
                     role: role,
                     token: token
                 });
+                this.props.history.push(`/${user.username}`);
             })
             .catch(err => {
-                alert("Sorry, we couldn't sign you in. Try signing in again.");
-                console.log("Error:\t", err);
+                this.props.history.push('/signin');
             })
     }
 
     render() {
         return (
             <Row className="AuthenticateContainer">
-                <span>Trying to sign you in with email {this.email}. If that works, we'll take you home.</span>
+                <span className="AuthenticateMessage">Trying to sign you in with email <strong>{this.email}</strong>. <br /><br />If that works, we'll take you home.</span>
             </Row>
         )
     }

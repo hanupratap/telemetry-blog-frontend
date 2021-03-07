@@ -3,18 +3,21 @@ import './stories.css';
 import StoryCard from '../StoryCard/StoryCard';
 import axios from 'axios';
 import { Row, Col, Container } from "react-bootstrap";
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
+
 
 class Stories extends Component {
     constructor(props) {
         super(props);
+        this.user = this.props.user;
     }
-    
+
     state = {
         stories: []
     }
 
     componentDidMount = () => {
-        axios.get('http://localhost:4000/api/user/get/utkarshpant/stories')
+        axios.get(`http://localhost:4000/api/user/get/${this.user}/stories`)
             .then(storiesRes => {
                 this.setState({ stories: storiesRes.data.data });
                 // alert(JSON.stringify(this.state.stories));
@@ -43,7 +46,7 @@ class Stories extends Component {
                                 <StoryCard story={story} key={story._id} />
                             )
                         })
-                        : "hehe"
+                        : <Skeleton count={1} width={300} />
                     }
                 </Row>
             </Container>

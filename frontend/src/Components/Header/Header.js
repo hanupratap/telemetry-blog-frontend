@@ -6,9 +6,9 @@ import Axios from 'axios';
 import { AuthConsumer, AuthContextType, AuthProvider } from '../../authcontext';
 
 class Header extends Component {
+    static contextType = AuthContextType;
     constructor(props) {
         super(props);
-
         const currentDate = new Date();
         const hourOfDay = currentDate.getHours();
         const timeOfDay = "";
@@ -21,36 +21,36 @@ class Header extends Component {
         }
     };
 
-    state = {
-        headerData: null
-    }
-
-    static contextType = AuthContextType;
 
     componentDidMount(props) {
-        const ctxt = this.context;
-        Axios.get(`http://localhost:4000/api/user/get/${ctxt.username}`)
-            .then(userData => {
-                this.setState({ headerData: userData.data.data });
-            })
-            .catch(err => {
-                alert("Something went wrong. Oops!");
-            });
+        console.log("this.context in the header:\t", this.context);
+        this.setState({user: this.context.user});
+    }
 
-    };
+
+    state = {
+        user: null
+    }
 
     render(props) {
         return (
-            <Row className="Header">
-                <Col lg={6} md={6} sm={5} id="headerWordmark" className="text-lg-left text-md-left text-sm-left text-xs-center">
-                    <span><img src="/images/Wordmark.svg"></img></span>
-                </Col>
-                <Col lg={6} md={6} sm={7} id="headerGreeting" className="text-left text-lg-right text-md-right text-sm-left d-inline d-lg-inline d-md-inline d-sm-inline">
-                    {`Good ${this.timeOfDay}${this.state.headerData ? ", " + this.state.headerData.firstName : ""}!`}
-                </Col>
-            </Row>
+            <AuthConsumer>
+                {
+                    (value) => (
+                        <Row className="Header">
+                        {console.log("Header state", this.state)}
+                            <Col lg={6} md={6} sm={5} id="headerWordmark" className="text-lg-left text-md-left text-sm-left text-xs-center">
+                                <span><img src="/images/Wordmark.svg"></img></span>
+                            </Col>
+                            <Col lg={6} md={6} sm={7} id="headerGreeting" className="text-left text-lg-right text-md-left text-sm-right d-inline d-lg-inline d-md-inline d-sm-inline">
+                                {`Good ${this.timeOfDay}${this.state.user ? ', ' + this.state.user.firstName : ""}!`}
+                            </Col>
+                        </Row>
+                    )
+                }
+            </AuthConsumer>
         )
     }
-};
+}
 
 export default Header;

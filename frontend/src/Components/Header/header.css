@@ -4,11 +4,12 @@
     min-height: 5vh;
     padding: 20px;
     font-family: "Cabin";
+    font-size: 12pt;
+
 }
 
 #headerGreeting {
     padding: 10px 20px;
-    font-weight: bold;
     align-items: center;
 }
 

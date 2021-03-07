@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { AuthProvider } from '../../authcontext';
+
 class Auth extends Component {
     constructor(props) {
         super(props);
+        this.user = JSON.parse(localStorage.getItem('user'));
     };
 
     /*
@@ -23,10 +25,10 @@ class Auth extends Component {
     */
 
     state = {
-        authenticated: localStorage.getItem('authenticated') ? localStorage.getItem('authenticated') : false,
-        username: localStorage.getItem('username') ? localStorage.getItem('username') : "",
-        role: localStorage.getItem('role') ? localStorage.getItem('role') : "visitor",
-        token: localStorage.getItem('token') ? localStorage.getItem('token') : "" 
+        authenticated: Boolean(localStorage.getItem('authenticated')) || false,
+        user: JSON.parse(localStorage.getItem('user')) || null,
+        role: localStorage.getItem('role') || 'visitor',
+        token: localStorage.getItem('token') || '',
     };
 
     initiateLogin = () => {
@@ -39,8 +41,9 @@ class Auth extends Component {
         localStorage.clear();
         this.setState({
             authenticated: false,
-            username: "",
-            role: "visitor"
+            user: "",
+            role: "visitor",
+            token: null
         });
         return (
             <Redirect to="/signin" />
@@ -48,26 +51,27 @@ class Auth extends Component {
     };
 
     setUserData = (authResult) => {
+        console.log("Auth provider setUserData called");
         this.setState({
             authenticated: true,
-            username: authResult.username,
+            user: authResult.user,
             role: authResult.role,
-            token: authResult.token
+            token: authResult.token,
         });
-        localStorage.setItem('username', authResult.username);
+        localStorage.setItem('user', authResult.user);
         localStorage.setItem('authenticated', true);
         localStorage.setItem('role', authResult.role);
         localStorage.setItem('token', authResult.token);
     };
 
     render() {
+        console.log("Auth provider render called");
         const authProviderValue = {
             ...this.state,
             initiateLogin: this.initiateLogin,
             logout: this.logout,
             setUserData: this.setUserData
         };
-        console.log("The following state is set for auth:\n", this.state);
         return (
             <AuthProvider value={authProviderValue}>
                 {this.props.children}

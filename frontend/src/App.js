@@ -14,30 +14,29 @@ import SignUp from './Components/SignUp/SignUp';
 import Stories from './Components/Stories/Stories';
 import UserProfile from './Components/UserProfile/UserProfile';
 import Editor from './Components/Editor/Editor';
-import { AuthProvider } from './authcontext';
+import { AuthProvider, AuthContextType } from './authcontext';
 import Auth from './Components/Auth/Auth';
 import Authenticate from './Components/Authentication/Authenticate';
+import Can from './Components/Can/Can';
 import './App.css';
+import { Profiler } from 'react';
 
 class App extends Component {
+	static contextType = AuthContextType;
 	constructor(props) {
 		super(props);
 	}
 
-	componentDidMount() {
-
-	}
-
 	render(props) {
+		console.log("App render called");
+		// let ctxt = this.context;
 		return (
-			<div className="App">
-				<Auth>
+			<Auth>
+				<div className="App">
 					<Container fluid>
 						<Header />
 						<Router>
 							<Switch>
-							<Route path="/" exact component={SignIn}>
-								</Route>
 								<Route path="/404" exact>
 									<Page404 />
 								</Route>
@@ -47,18 +46,25 @@ class App extends Component {
 								<Route path="/signup" exact>
 									<SignUp />
 								</Route>
-								<Route path="/authenticate/:randomString" component={Authenticate}>
+								<Route path="/authenticate/:randomString" exact component={Authenticate}>
 									{/* <UserProfile /> */}
 								</Route>
 								<Route path="/:username" component={UserProfile}>
-									{/* <UserProfile /> */}
+									{/* <UserProfile user={this.props.match.username}/> */}
+								</Route>
+								<Route path="/" exact>
+									{
+										this.context.authenticated
+											? <UserProfile me="true" />
+											: <SignIn />
+									}
 								</Route>
 							</Switch>
 						</Router>
 						<Footer />
 					</Container>
-				</Auth>
-			</div>
+				</div>
+			</Auth>
 		);
 	}
 };
