@@ -38,7 +38,6 @@ class Header extends Component {
                 {
                     (value) => (
                         <Row className="Header">
-                        {console.log("Header state", this.state)}
                             <Col lg={6} md={6} sm={5} id="headerWordmark" className="text-lg-left text-md-left text-sm-left text-xs-center">
                                 <span><img src="/images/Wordmark.svg"></img></span>
                             </Col>

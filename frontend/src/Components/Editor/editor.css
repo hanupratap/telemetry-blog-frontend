@@ -57,7 +57,7 @@
 
 .ql-container {
     border: none;
-    height: 100vh;
+    min-height: 70vh;
     font-family: "Newsreader";
     font-size: 14pt;
 }
@@ -78,4 +78,8 @@ pre.ql-syntax {
     border-radius: 15px;
     color: #303030;
     font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+*:disabled {
+    background: #ffffff;
 }

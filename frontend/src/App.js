@@ -40,18 +40,37 @@ class App extends Component {
 								<Route path="/404" exact>
 									<Page404 />
 								</Route>
+								
 								<Route path="/signin" exact>
 									<SignIn />
 								</Route>
+								
 								<Route path="/signup" exact>
 									<SignUp />
 								</Route>
+								
 								<Route path="/authenticate/:randomString" exact component={Authenticate}>
-									{/* <UserProfile /> */}
 								</Route>
+								
+								<Route path="/story/edit/:storyId" exact render={(props) => (
+									<Editor {...props} mode="edit" />
+								)}>
+								</Route>
+
+								<Route path="/story/new" exact render={(props) => (
+									<Editor {...props} mode="new" />
+								)}>
+								</Route>
+
+								<Route path="/story/:storyId" exact render={(props) => (
+									<Editor {...props} mode="view" />
+								)}>
+								</Route>
+								
 								<Route path="/:username" component={UserProfile}>
 									{/* <UserProfile user={this.props.match.username}/> */}
 								</Route>
+								
 								<Route path="/" exact>
 									{
 										this.context.authenticated
