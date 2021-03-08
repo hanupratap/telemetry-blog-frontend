@@ -46,7 +46,7 @@ const Storycard = (props) => {
                 yes={() => (
                     <Row className="StoryEditControlsContainer">
                         <Col lg={1} md={1} sm={12} xs={12} className="text-left">
-                            <Link to={`/edit/${props.story._id}`} id="editStoryLink" className="StoryOptions">Edit</Link>
+                            <Link to={`story/edit/${props.story._id}`} id="editStoryLink" className="StoryOptions">Edit</Link>
                         </Col>
                         <Col lg={2} md={2} sm={12} xs={12} className="text-md-center text-sm-left">
                             <a href={`localhost:4000/api/story/unpublish/${props.story._id}`} id="unpublishStoryLink" className="StoryOptions">Unpublish</a>

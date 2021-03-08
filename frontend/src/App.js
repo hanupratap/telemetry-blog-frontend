@@ -37,21 +37,26 @@ class App extends Component {
 						<Header />
 						<Router>
 							<Switch>
-								<Route path="/404" exact>
-									<Page404 />
+								<Route path="/404" exact render={(props) => (
+									<Page404 {...props} />
+								)}>
 								</Route>
-								
-								<Route path="/signin" exact>
-									<SignIn />
+
+								<Route path="/signin" exact render={(props) => (
+									<SignIn {...props} />
+								)}>
 								</Route>
-								
-								<Route path="/signup" exact>
-									<SignUp />
+
+								<Route path="/signup" exact render={(props) => (
+									<SignUp {...props} />
+								)}>
 								</Route>
-								
-								<Route path="/authenticate/:randomString" exact component={Authenticate}>
+
+								<Route path="/authenticate/:randomString" exact render={(props) => (
+									<Authenticate {...props} />
+								)}>
 								</Route>
-								
+
 								<Route path="/story/edit/:storyId" exact render={(props) => (
 									<Editor {...props} mode="edit" />
 								)}>
@@ -66,17 +71,17 @@ class App extends Component {
 									<Editor {...props} mode="view" />
 								)}>
 								</Route>
-								
-								<Route path="/:username" component={UserProfile}>
-									{/* <UserProfile user={this.props.match.username}/> */}
+
+								<Route path="/:username" render={(props) => (
+									<UserProfile {...props} />
+								)}>
 								</Route>
-								
-								<Route path="/" exact>
-									{
-										this.context.authenticated
-											? <UserProfile me="true" />
-											: <SignIn />
-									}
+
+								<Route path="/" exact render={(props) => (
+									this.context.authenticated
+										? <UserProfile me="true" {...props} />
+										: <SignIn {...props} />
+								)}>
 								</Route>
 							</Switch>
 						</Router>

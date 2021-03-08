@@ -1,11 +1,12 @@
 import React, { Component } from "react";
 import ReactQuill, { Quill } from 'react-quill';
-import { Row, Col, Container } from 'react-bootstrap';
+import { Row, Col, Container, ThemeProvider } from 'react-bootstrap';
 import 'react-quill/dist/quill.bubble.css'; // ES6
 import './editor.css';
 import Input from "../Input/Input";
 import { AuthContextType, AuthConsumer } from '../../authcontext';
 import axios from "axios";
+import IdleTimer from 'react-idle-timer';
 
 /*
     This component is the Editor for stories,
@@ -28,18 +29,51 @@ class Editor extends Component {
         this.handleChange = this.handleChange.bind(this);
         this.reactQuillRef = null;      //react component;
         this.quillRef = null;           //quill instance reference;
+        this.save = this.save.bind(this);
+        this.idleTimer = null;
     };
 
     state = {
-        storyId: "",
+        storyId: null,
         storyTitle: "",
         storySubtitle: "",
         storyBody: "",
+        saveTime: null,
+        hasChanges: false
     };
 
+
     handleChange(content, delta, source, editor) {
-        this.setState({ storyBody: content });
+        this.setState({ storyBody: content, hasChanges: true });
     };
+
+    save() {
+        if (this.props.mode != "view") {
+            const dateModified = Date.now();
+            axios.post(`http://localhost:4000/api/story/update/${this.state.storyId}`, {
+                owner: this.context.user.username,
+                content: {
+                    title: this.state.storyTitle == "" ? "A story you saved without a title" : this.state.storyTitle,
+                    subtitle: this.state.storySubtitle == "" ? "A story you saved without a subtitle" : this.state.storySubtitle,
+                    body: this.state.storyBody
+                },
+                dateModified: dateModified
+            }, {
+                headers: {
+                    'x-auth-token': this.context.token
+                }
+            })
+                .then(response => {
+                    console.log("Saved story response", response.data.data);
+                    const story = response.data.data;
+                    const dateSaved = new Date(story.dateModified);
+                    this.setState({
+                        saveTime: String(dateSaved.getHours() + ":" + dateSaved.getMinutes()),
+                        hasChanges: false
+                    })
+                })
+        }
+    }
 
     /*
         if the editor is opened in 'edit' mode, 
@@ -49,19 +83,23 @@ class Editor extends Component {
     componentDidMount() {
         this.attachQuillRef();
         this.quillRef.focus();
-        
+
         // if editing an existing story, retrieve it and check ownership
         // if all good, set editor values;
         if (this.props.mode == "edit") {
             axios.get(`http://localhost:4000/api/story/get/${this.props.match.params.storyId}`)
                 .then(response => {
-                    const story = response.data;
+                    const story = response.data.data;
                     if (story.owner == this.context.user.username) {
+                        const dateCreated = new Date(story.dateCreated);
+
                         this.setState({
                             storyId: story._id,
                             storyTitle: story.content.title,
                             storySubtitle: story.content.subtitle,
-                            storyBody: story.content.body
+                            storyBody: story.content.body,
+                            saveTime: String(dateCreated.getHours() + ":" + dateCreated.getMinutes()),
+                            hasChanges: false
                         })
                     } else {
                         alert("You aren't allowed to do that!");
@@ -79,7 +117,8 @@ class Editor extends Component {
             this.quillRef.disable(true);
             axios.get(`http://localhost:4000/api/story/get/${this.props.match.params.storyId}`)
                 .then(response => {
-                    const story = response.data;
+                    const story = response.data.data;
+                    console.log("View story response", response.data);
                     this.setState({
                         storyId: story._id,
                         storyTitle: story.content.title,
@@ -99,9 +138,9 @@ class Editor extends Component {
         if (this.props.mode == "new") {
             axios.post(`http://localhost:4000/api/story/new/`, {
                 owner: this.context.user.username,
-                storyTitle: this.state.storyTitle,
-                storyBody: this.state.storyBody,
-                storySubtitle: this.state.storySubtitle,
+                storyTitle: "Give your story a title...",
+                storyBody: "",
+                storySubtitle: "",
                 tags: []
             }, {
                 headers: {
@@ -111,11 +150,15 @@ class Editor extends Component {
                 .then(response => {
                     const story = response.data.data;
                     console.log("New story reponse", response.data.data);
+                    const dateCreated = new Date(response.data.created);
+
                     this.setState({
                         storyId: story._id,
                         storyTitle: story.content.title,
                         storySubtitle: story.content.subtitle,
-                        storyBody: "The ID of this new story is " + story._id
+                        storyBody: story.content.body,
+                        saveTime: String(dateCreated.getHours() + ":" + dateCreated.getMinutes()),
+                        hasChanges: false
                     })
                 })
                 .catch(err => {
@@ -137,52 +180,68 @@ class Editor extends Component {
     render() {
         return (
             <Container fluid className="EditorContainer">
-                <Row className="EditorHeader">
-                    <input
-                        className="StoryTitle"
-                        name="storyTitle"
-                        value={this.state.storyTitle}
-                        placeholder="Give your story a title...."
-                        disabled={this.props.mode == "edit" ? false : true}
-                        onChange={(event) => {
-                            event.preventDefault();
-                            this.setState({ storyTitle: event.target.value });
-                        }} />
-                    <input
-                        className="StorySubtitle"
-                        name="storySubtitle"
-                        value={this.state.storysubTitle}
-                        placeholder="and an optional subtitle."
-                        disabled={this.props.mode == "edit" ? false : true}
-                        onChange={(event) => {
-                            event.preventDefault();
-                            this.setState({ storySubtitle: event.target.value });
-                        }} />
-                </Row>
-                <Row className="Editor">
-                    <ReactQuill
-                        ref={(el) => { this.reactQuillRef = el }}
-                        value={this.state.storyBody}
-                        onChange={this.handleChange}
-                        theme="bubble"
-                        style={
-                            { fontFamily: "Newsreader" }
-                        }
-                        modules={
-                            {
-                                toolbar: [
-                                    [{ 'header': [1, 2, 3, 4, false] }],
-                                    ['bold', 'italic', 'underline', 'strike', 'blockquote', 'code-block'],
-                                    [{ 'script': 'sub' }, { 'script': 'super' }],
-                                    [{ 'list': 'ordered' }, { 'list': 'bullet' }, { 'indent': '-1' }, { 'indent': '+1' }],
-                                    ['link', 'image', 'video'],
-                                    ['clean'],
-                                    [{ 'align': [] }]
-                                ]
+                {
+                    (this.props.mode != "view" && this.state.storyId)
+                        ? <Row className="AutosaveInformation">
+                            <span>This story was last saved at {`${this.state.saveTime}`}</span>
+                        </Row>
+                        : null
+                }
+                <IdleTimer
+                    timeout={10000}
+                    ref={ref => { this.idleTimer = ref }}
+                    startOnMount={false}
+                    onIdle={this.save}
+                    onAction={() => {
+                        this.idleTimer.reset();
+                    }}>
+                    <Row className="EditorHeader">
+                        <input
+                            className="StoryTitle"
+                            name="storyTitle"
+                            value={this.state.storyTitle}
+                            placeholder="Give your story a title...."
+                            disabled={this.props.mode == "edit" || "new" ? false : true}
+                            onChange={(event) => {
+                                event.preventDefault();
+                                this.setState({ storyTitle: event.target.value, hasChanges: true });
+                            }} />
+                        <input
+                            className="StorySubtitle"
+                            name="storySubtitle"
+                            value={this.state.storysubTitle}
+                            placeholder="and an optional subtitle."
+                            disabled={this.props.mode == "edit" || "new" ? false : true}
+                            onChange={(event) => {
+                                event.preventDefault();
+                                this.setState({ storySubtitle: event.target.value, hasChanges: true });
+                            }} />
+                    </Row>
+                    <Row className="Editor">
+                        <ReactQuill
+                            ref={(el) => { this.reactQuillRef = el }}
+                            value={this.state.storyBody}
+                            onChange={this.handleChange}
+                            theme="bubble"
+                            style={
+                                { fontFamily: "Newsreader" }
                             }
-                        }
-                        placeholder="Now, begin your story here." />
-                </Row>
+                            modules={
+                                {
+                                    toolbar: [
+                                        [{ 'header': [1, 2, 3, 4, false] }],
+                                        ['bold', 'italic', 'underline', 'strike', 'blockquote', 'code-block'],
+                                        [{ 'script': 'sub' }, { 'script': 'super' }],
+                                        [{ 'list': 'ordered' }, { 'list': 'bullet' }, { 'indent': '-1' }, { 'indent': '+1' }],
+                                        ['link', 'image', 'video'],
+                                        ['clean'],
+                                        [{ 'align': [] }]
+                                    ]
+                                }
+                            }
+                            placeholder="Now, begin your story here." />
+                    </Row>
+                </IdleTimer>
             </Container>
         )
     }

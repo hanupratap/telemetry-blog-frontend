@@ -38,10 +38,10 @@ class Header extends Component {
                 {
                     (value) => (
                         <Row className="Header">
-                            <Col lg={6} md={6} sm={5} id="headerWordmark" className="text-lg-left text-md-left text-sm-left text-xs-center">
-                                <span><img src="/images/Wordmark.svg"></img></span>
+                            <Col lg={6} md={6} sm={6} id="headerWordmark" className="text-lg-left text-md-left text-sm-left text-xs-center">
+                                <span><a href="/"><img src="/images/Wordmark.svg"></img></a></span>
                             </Col>
-                            <Col lg={6} md={6} sm={7} id="headerGreeting" className="text-left text-lg-right text-md-left text-sm-right d-inline d-lg-inline d-md-inline d-sm-inline">
+                            <Col lg={6} md={6} sm={6} id="headerGreeting" className="text-left text-lg-right text-md-right text-sm-right d-inline d-lg-inline d-md-inline d-sm-inline">
                                 {`Good ${this.timeOfDay}${this.state.user ? ', ' + this.state.user.firstName : ""}!`}
                             </Col>
                         </Row>
