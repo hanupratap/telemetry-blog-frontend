@@ -49,7 +49,7 @@ class Editor extends Component {
 
     save() {
         if (this.props.mode != "view") {
-            const dateModified = Date.now();
+            const dateModified = Date();
             axios.post(`http://localhost:4000/api/story/update/${this.state.storyId}`, {
                 owner: this.context.user.username,
                 content: {
@@ -68,9 +68,12 @@ class Editor extends Component {
                     const story = response.data.data;
                     const dateSaved = new Date(story.dateModified);
                     this.setState({
-                        saveTime: String(dateSaved.getHours() + ":" + dateSaved.getMinutes()),
+                        saveTime: String(dateSaved.toLocaleTimeString('en-IN')),
                         hasChanges: false
                     })
+                })
+                .catch(err => {
+                    console.log("Update story error response", err.response.data);
                 })
         }
     }
@@ -91,14 +94,14 @@ class Editor extends Component {
                 .then(response => {
                     const story = response.data.data;
                     if (story.owner == this.context.user.username) {
-                        const dateCreated = new Date(story.dateCreated);
+                        const dateCreated = new Date(story.dateModified);
 
                         this.setState({
                             storyId: story._id,
                             storyTitle: story.content.title,
                             storySubtitle: story.content.subtitle,
                             storyBody: story.content.body,
-                            saveTime: String(dateCreated.getHours() + ":" + dateCreated.getMinutes()),
+                            saveTime: String(dateCreated.toLocaleTimeString('en-IN')),
                             hasChanges: false
                         })
                     } else {
@@ -127,7 +130,7 @@ class Editor extends Component {
                     })
                 })
                 .catch(err => {
-                    console.log("Error occured in getting story", err);
+                    this.props.history.push('/404');
                 })
         }
 
@@ -139,8 +142,8 @@ class Editor extends Component {
             axios.post(`http://localhost:4000/api/story/new/`, {
                 owner: this.context.user.username,
                 storyTitle: "Give your story a title...",
-                storyBody: "",
-                storySubtitle: "",
+                storyBody: this.state.storyBody,
+                storySubtitle: this.state.storySubitle,
                 tags: []
             }, {
                 headers: {
@@ -150,14 +153,14 @@ class Editor extends Component {
                 .then(response => {
                     const story = response.data.data;
                     console.log("New story reponse", response.data.data);
-                    const dateCreated = new Date(response.data.created);
+                    const dateCreated = new Date();
 
                     this.setState({
                         storyId: story._id,
                         storyTitle: story.content.title,
                         storySubtitle: story.content.subtitle,
                         storyBody: story.content.body,
-                        saveTime: String(dateCreated.getHours() + ":" + dateCreated.getMinutes()),
+                        saveTime: String(dateCreated.toLocaleTimeString('en-IN')),
                         hasChanges: false
                     })
                 })
@@ -188,7 +191,7 @@ class Editor extends Component {
                         : null
                 }
                 <IdleTimer
-                    timeout={10000}
+                    timeout={3000}
                     ref={ref => { this.idleTimer = ref }}
                     startOnMount={false}
                     onIdle={this.save}
@@ -201,7 +204,7 @@ class Editor extends Component {
                             name="storyTitle"
                             value={this.state.storyTitle}
                             placeholder="Give your story a title...."
-                            disabled={this.props.mode == "edit" || "new" ? false : true}
+                            disabled={this.props.mode == "view" ? true : false}
                             onChange={(event) => {
                                 event.preventDefault();
                                 this.setState({ storyTitle: event.target.value, hasChanges: true });
@@ -211,7 +214,7 @@ class Editor extends Component {
                             name="storySubtitle"
                             value={this.state.storysubTitle}
                             placeholder="and an optional subtitle."
-                            disabled={this.props.mode == "edit" || "new" ? false : true}
+                            disabled={this.props.mode == "view" ? true : false}
                             onChange={(event) => {
                                 event.preventDefault();
                                 this.setState({ storySubtitle: event.target.value, hasChanges: true });

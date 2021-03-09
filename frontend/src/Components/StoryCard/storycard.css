@@ -7,6 +7,21 @@
     background: #7a7a7a10;
 }
 
+.StoryCardLink {
+    text-decoration: none;
+    color: #000000;
+}
+
+.StoryCardLink:active {
+    text-decoration: none;
+    color: #000000;
+}
+
+.StoryCardLink:hover {
+    text-decoration: none;
+    color: #000000;
+}
+
 .StoryEditControlsContainer {
     align-items: flex-start;
     font-family: "Cabin";

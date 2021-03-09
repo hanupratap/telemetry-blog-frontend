@@ -45,9 +45,7 @@ class Auth extends Component {
             role: "visitor",
             token: null
         });
-        return (
-            <Redirect to="/signin" />
-        )
+        window.location.reload();
     };
 
     setUserData = (authResult) => {

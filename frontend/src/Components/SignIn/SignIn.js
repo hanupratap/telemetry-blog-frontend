@@ -179,7 +179,6 @@ class SignInForm extends React.Component {
 		console.log(formData);
 		axios.post("http://localhost:4000/api/user/signin", formData)
 			.then(response => {
-				alert(JSON.stringify(response.data));
 				this.setState({
 					statusText: "Check your email for the sign-in link.",
 					loading: false

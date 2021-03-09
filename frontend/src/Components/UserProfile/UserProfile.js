@@ -29,7 +29,6 @@ class UserProfile extends Component {
                     }
                 })
                 .then(response => {
-                    console.log("Me was called");
                     const user = response.data.data;
                     this.setState({
                         user: user
@@ -63,7 +62,13 @@ class UserProfile extends Component {
                         <SkeletonTheme color="#ffffff80" highlight="#ffffff">
                             <span className="HeaderText">{this.state.user ? this.state.user.firstName + " " + this.state.user.lastName : <Skeleton count={1} width={300} />}</span>
                             <SkeletonTheme color="#ffffff22">
-                                <span className="HeaderTwitterText">{this.state.user ? <a className="TwitterLink" href={`https://twitter.com/${this.state.user.socialMediaHandles.twitter}`}>{"@" + this.state.user.socialMediaHandles.twitter + " on Twitter"}</a> : <Skeleton count={1} width={200} />}</span>
+                                {
+                                    (this.state.user && this.state.user.socialMediaHandles.twitter)
+                                        ? <span className="HeaderTwitterText">
+                                            <a className="TwitterLink" href={`https://twitter.com/${this.state.user.socialMediaHandles.twitter}`}>{"@" + this.state.user.socialMediaHandles.twitter + " on Twitter"}</a>
+                                        </span>
+                                        : null
+                                }
                             </SkeletonTheme>
                         </SkeletonTheme>
                     </Row>
@@ -77,7 +82,7 @@ class UserProfile extends Component {
                     </Row>
                     <Row className="BodyRow">
                         {
-                            this.state.user ? <Stories user={this.state.user.username }/> : <Skeleton count={1} width={300} />
+                            this.state.user ? <Stories user={this.state.user.username} /> : <Skeleton count={1} width={300} />
                         }
                     </Row>
                 </Col>

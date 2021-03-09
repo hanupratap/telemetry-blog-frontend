@@ -24,12 +24,13 @@ class Header extends Component {
 
     componentDidMount(props) {
         console.log("this.context in the header:\t", this.context);
-        this.setState({user: this.context.user});
+        this.setState({ user: this.context.user });
     }
 
 
     state = {
-        user: null
+        user: null,
+        searchOpened: false
     }
 
     render(props) {
@@ -38,11 +39,25 @@ class Header extends Component {
                 {
                     (value) => (
                         <Row className="Header">
-                            <Col lg={6} md={6} sm={6} id="headerWordmark" className="text-lg-left text-md-left text-sm-left text-xs-center">
+                            <Col lg={2} md={12} id="headerWordmark" className="text-left text-lg-left text-md-left text-sm-left text-xs-center">
                                 <span><a href="/"><img src="/images/Wordmark.svg"></img></a></span>
                             </Col>
-                            <Col lg={6} md={6} sm={6} id="headerGreeting" className="text-left text-lg-right text-md-right text-sm-right d-inline d-lg-inline d-md-inline d-sm-inline">
+                            <Col lg={6} md={12} id="headerSearch" className="text-center text-lg-center d-inline d-lg-inline d-md-inline d-sm-inline">
+                                <input type="text" className="SearchBar" placeholder="Search by author, story titles/subtitles, and tags." />
+                            </Col>
+                            <Col lg={3} md={12} id="headerGreeting" className="text-left text-md-left text-sm-left d-inline d-lg-inline d-md-inline d-sm-inline">
                                 {`Good ${this.timeOfDay}${this.state.user ? ', ' + this.state.user.firstName : ""}!`}
+                            </Col>
+                            <Col lg={1} sm={12} className="text-right text-md-right text-sm-right">
+                            {
+                                this.context.authenticated
+                                    ? <button className="Logout" onClick={() => {
+                                        this.context.logout();
+                                    }}>
+                                        Logout
+                                    </button>
+                                    : null
+                            }
                             </Col>
                         </Row>
                     )
