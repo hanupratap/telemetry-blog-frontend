@@ -1,0 +1,102 @@
+.StoryCard {
+    max-width: 60vw;
+    border-radius: 5px;
+    color: #000000;
+    padding: 20px;
+    margin: 10px 10px 0px 0px;
+    max-height: 50vh;
+    font-family: "Cabin";
+    box-shadow: 0px 0px 10px #1a1a1a30;
+    display: flex;
+    flex-direction: column;
+    min-width: 60vw;
+}
+
+.StoryDetails {
+    padding: 10px auto;
+    max-width: 40vw;
+    display: flex;
+    flex-direction: column;
+}
+
+.StoryCardLink {
+    width: 50vw;
+    text-decoration: none;
+    color: #000000;
+}
+
+.StoryCardLink:active {
+    text-decoration: none;
+    color: #000000;
+}
+
+.StoryCardLink:hover {
+    text-decoration: none;
+    color: #000000;
+}
+
+.StoryEditControlsContainer {
+    align-items: flex-start;
+    font-family: "Cabin";
+    padding: 10px 10px;
+    max-width: 100vw;
+    max-height: 50%;
+    border-top: 1px dashed #ff6161;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.StoryCardTitle {
+    min-height: 10vh;
+    padding: 10px 0px 0px 10px;
+    font-size: 18pt;
+    font-family: "Cabin";
+}
+
+.StoryCardSubtitle {
+    width: 100%;
+    height: 10vh;
+    margin: 10px 10px 10px 0px;
+    padding: 10px;
+    font-family: "Cabin";
+    font-size: 12pt;
+    color: #000000;
+}
+
+.storyTags {
+    min-height: 25%;
+    max-width: 100vw;
+    padding: 20px 30px;
+    font-family: "Newsreader";
+}
+
+.storyTag {
+    padding: 5px 10px;
+    border-radius: 5px;
+    background: #7a7a7a40;
+    color: black; 
+    margin: 10px 10px 0px 0px;
+    font-family: "Cabin";
+    font-size: 9pt;
+}
+
+.StoryOptions {
+    margin: 5px;
+    text-decoration: none;
+    transition: color 0.15s linear;
+    color: #0a375b;
+}
+
+.StoryOptions:hover {
+    text-decoration: none;
+    color: #0A375B;
+}
+
+#deleteStoryLink {
+    font-weight: bold;
+    color: #0a375b;
+}
+
+#deleteStoryLink:hover {
+    color: #ff6161;
+}

@@ -1,0 +1,45 @@
+.Input {
+    align-self: center;
+    text-decoration: none;
+    height: 40px;
+    min-width: 300px;
+    margin: 5px;
+    background: #f2f2f2;
+    color: #535353;
+    border: none;
+    border-radius: 5px;
+    text-align: center;
+    transition: all 0.125s ease-in;
+    border: 2px solid #ffffff00;
+}
+
+.Input::placeholder {
+    color: #7a7a7a88;
+}
+
+.Input:focus {
+    outline: none !important;
+    border: 2px solid #0A537B;
+}
+
+.Error {
+    border: 2px solid #FF6161;
+}
+
+.ErrorText {
+    display: block;
+    margin: auto;
+    width: 300px;
+    color: #ff6161;
+    font-size: 9pt;
+    font-weight: bold;
+}
+
+.HideLabel {
+    visibility: hidden;
+}
+
+.Show {
+    visibility: visible;
+    color: #FF6161;
+}

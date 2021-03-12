@@ -1,0 +1,84 @@
+.UserCard_small {
+    border-radius: 5px;
+    margin: 10px 10px 10px -5px;
+    color: #ffffff;
+    padding: 20px;
+    max-width: 70vw;
+    max-height: 30vh;
+    font-family: "Cabin";
+    box-shadow: 0px 0px 10px #1a1a1a30;
+}
+
+.UserCard_small {
+    background: linear-gradient(212deg, #ffd89b, #19547b);
+    background-size: 400% 400%;
+
+    -webkit-animation: AuthorCardAnimation 20s ease infinite;
+    -moz-animation: AuthorCardAnimation 20s ease infinite;
+    animation: AuthorCardAnimation 20s ease infinite;
+}
+
+@-webkit-keyframes AuthorCardAnimation {
+    0%{background-position:0% 99%}
+    50%{background-position:100% 2%}
+    100%{background-position:0% 99%}
+}
+@-moz-keyframes AuthorCardAnimation {
+    0%{background-position:0% 99%}
+    50%{background-position:100% 2%}
+    100%{background-position:0% 99%}
+}
+@keyframes AuthorCardAnimation {
+    0%{background-position:0% 99%}
+    50%{background-position:100% 2%}
+    100%{background-position:0% 99%}
+}
+
+a:hover {
+    text-decoration: none !important;
+}
+
+.UserCardNameRow_small {
+    padding: 10px 0px 0px 10px;
+    max-width: 100vw;
+}
+
+.UserCardFullName_small {
+    font-size: 18pt;
+}
+
+.UserCardUsernameRow_small {
+    align-items: center;
+    max-width: 100vh;
+    height: 10vh;
+}
+
+.UserCardUsername_small {
+    font-size: 10pt;
+    font-weight: bold;
+    display: inline;
+    padding: 10px;
+}
+
+.UserCardBioRow_small {
+    padding: 0px 0px 10px 10px;
+}
+
+.UserCardBio_small {
+    font-size: 10pt;
+}
+
+.UserCardSocialRow_small {
+    padding: 10px;
+}
+
+.UserCardTwitter_small {
+    font-size: 18pt;
+    color: #000000;
+    display: inline;
+    padding: 10px;
+}
+
+.fa-twitter {
+    color: #ffffff;
+}

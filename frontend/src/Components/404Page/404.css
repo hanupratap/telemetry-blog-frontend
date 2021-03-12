@@ -3,6 +3,7 @@
     min-height: 100vh;
     padding: 20px;
     flex: 1 0 auto;
+    margin-bottom: 50vh;
 }
 
 #text404 {
@@ -12,7 +13,7 @@
 }
 
 #text404 h1 {
-    font-family: "Karla";
+    font-family: "Cabin";
     font-size: 16pt;
 }
 

@@ -1,0 +1,9 @@
+.AuthenticateContainer {
+    height: 100vh;
+    margin-bottom: 50vh;
+    padding: 20px;
+}
+
+.AuthenticateMessage {
+    padding: 20px;
+}
