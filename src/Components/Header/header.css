@@ -149,3 +149,8 @@
     border-radius: 10px;
     overflow-y: auto;
 }
+
+.Logout {
+    margin-right: 10px;
+    height: 40px;
+}

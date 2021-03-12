@@ -18,6 +18,7 @@
     background: none;
     font-family: "Cabin";
     font-size: 22pt;
+    margin-left: 20px;
 }
 
 #newStoryBtn {
@@ -34,5 +35,5 @@
     font-weight: bold;
     font-family: "Cabin";
     box-shadow: 0px 0px 5px #00000030;
-    margin: 10px -5px 0px 20px;
+    margin-right: 20px;
 }

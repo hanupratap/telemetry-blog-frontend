@@ -1,5 +1,5 @@
 .SearchStoryCard {
-    width: 70vw;
+    max-width: 60vw;
     border-radius: 5px;
     color: #ffffff;
     padding: 20px;

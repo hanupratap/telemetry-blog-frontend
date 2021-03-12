@@ -14,6 +14,7 @@ class Stories extends Component {
         super(props);
         this.user = this.props.user;
         this.handleDeletion.bind(this);
+        this.handleUpdation.bind(this);
         this.newStoryButtonHandler.bind(this);
     }
 
@@ -26,6 +27,10 @@ class Stories extends Component {
             return story._id != deletedStoryId
         });
         this.setState({ stories: newStoryList });
+    }
+
+    handleUpdation = (deletedStoryId) => {
+        this.setState(prevState => ({...prevState}));
     }
 
     componentDidMount = () => {
@@ -81,7 +86,7 @@ class Stories extends Component {
                                                     this.state.stories.length != 0
                                                     ? this.state.stories.map((story) => {
                                                         return (
-                                                            <StoryCard story={story} key={story._id} handleDeletion={this.handleDeletion} />
+                                                            <StoryCard story={story} key={story._id} handleDeletion={this.handleDeletion} handleUpdation={this.handleUpdation}/>
                                                         )
                                                     })
                                                     : <p>

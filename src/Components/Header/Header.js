@@ -90,7 +90,7 @@ class Header extends Component {
                                             ? <button className="Logout" onClick={() => {
                                                 this.context.logout();
                                             }}>
-                                                Logout
+                                                Log me out.
                                             </button>
                                             : <a href="/signin">Sign me in.</a>
                                     }

@@ -12,9 +12,15 @@ const Storycard = (props) => {
 
     const authContext = useContext(AuthContextType);
 
-    const onUnpublishHandler = (event) => {
-        event.preventDefault();
-
+    const onPublishUnpublishHandler = (storyToUpdate) => {
+        console.log("Publish unpublish handler called for", storyToUpdate);
+        axios.get(`http://localhost:4000/api/story/${storyToUpdate.isPublished ? "unpublish" : "publish"}/${storyToUpdate._id}`)
+            .then(response => {
+                window.location.reload();
+            })
+            .catch(err => {
+                console.log("Error in updation", err.response);
+            })
         // TODO: Set up the unpublish POST request here
         // using axios;
     }
@@ -55,12 +61,25 @@ const Storycard = (props) => {
                             <a href={`story/edit/${props.story._id}`} id="editStoryLink" className="StoryOptions">Edit</a>
                         </div>
                         <div className="text-md-left text-sm-left">
-                            <a href={`localhost:4000/api/story/${props.story.isPublished ? "unpublish" : "publish"}/${props.story._id}`} id="unpublishStoryLink" className="StoryOptions">{props.story.isPublished ? "Unpublish" : "Publish"}</a>
+                            <span
+                                id="unpublishStoryLink"
+                                className="StoryOptions"
+                                onClick={(event) => {
+                                    onPublishUnpublishHandler(props.story);
+                                }}
+                            >
+                                {props.story.isPublished ? "Unpublish" : "Publish"}
+                            </span>
                         </div>
                         <div className="text-md-left text-sm-left">
-                            <span id="deleteStoryLink" className="StoryOptions" onClick={(event) => {
-                                onDeleteHandler(props.story._id);
-                            }}>Delete</span>
+                            <span
+                                id="deleteStoryLink"
+                                className="StoryOptions"
+                                onClick={(event) => {
+                                    onDeleteHandler(props.story._id);
+                                }}>
+                                Delete
+                            </span>
                         </div>
                         {
                             console.log("authcontext username:", authContext.user.username, "post owner:", props.story.owner)
