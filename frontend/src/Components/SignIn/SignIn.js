@@ -176,16 +176,16 @@ class SignInForm extends React.Component {
 
 	triggerSignIn = (formData) => {
 		this.setState({ loading: true });
-		console.log(formData);
+		// console.log(formData);
 		axios.post("http://localhost:4000/api/user/signin", formData)
 			.then(response => {
 				this.setState({
-					statusText: "Check your email for the sign-in link.",
+					statusText: "Check your email for the sign-in link. Don't forget to check your spam!",
 					loading: false
 				})
 			})
 			.catch(err => {
-				console.log(JSON.stringify(err.response.data));
+				// console.log(JSON.stringify(err.response.data));
 				this.setState({
 					statusText: "An error occured. Try again.",
 					loading: false

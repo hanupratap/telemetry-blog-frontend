@@ -32,7 +32,7 @@ class Authenticate extends Component {
                 const token = response.data.token;
                 this.context.setUserData({
                     // username: username,
-                    user: JSON.stringify(user),
+                    user: user,
                     role: role,
                     token: token
                 });

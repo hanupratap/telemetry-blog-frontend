@@ -4,9 +4,9 @@ import StoryCard from '../StoryCard/StoryCard';
 import axios from 'axios';
 import { Row, Col, Container } from "react-bootstrap";
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
-import { AuthContextType } from '../../authcontext';
+import { AuthConsumer, AuthContextType } from '../../authcontext';
 import Can from "../Can/Can";
-import { withRouter } from 'react-router-dom'; 
+import { withRouter } from 'react-router-dom';
 
 class Stories extends Component {
     static contextType = AuthContextType;
@@ -49,52 +49,70 @@ class Stories extends Component {
     }
 
     render() {
+        console.log("Rendering stories for user", this.user);
         return (
-            <Container fluid className="StoriesContainer">
-                <Row className="StoriesContainerHeader">
-                    <Col lg={6} md={6} sm={12} className=" text-left text-lg-left text-md-left text-sm-left">
-                        <span id="ContainerHeaderText">Stories</span>
-                    </Col>
-                    <Col lg={6} md={6} sm={12} className="text-left text-lg-right text-md-right text-sm-left">
-                        <input type="submit" value="Inspired? Start a new story." id="newStoryBtn" onClick={() => {
-                            this.newStoryButtonHandler();
-                        }}></input>
-                    </Col>
-                    <hr></hr>
-                </Row>
-                <Can
-                    role={this.context.role}
-                    perform="posts:edit"
-                    data={{
-                        username: this.context.user ? this.context.user.username : null,
-                        postOwner: this.user
-                    }}
-                    yes={(props) => (
-                        <Row className="StoriesContainerBody">
-                            {this.state.stories
-                                ? this.state.stories.map((story) => {
-                                    return (
-                                        <StoryCard story={story} key={story._id} handleDeletion={this.handleDeletion} />
-                                    )
-                                })
-                                : <Skeleton count={1} width={300} />
-                            }
+            <AuthConsumer>
+                {(value) => (
+                    <Container fluid className="StoriesContainer">
+                        <Row className="StoriesContainerHeader">
+                            <Col className=" text-left text-lg-left text-md-left text-sm-left">
+                                <span id="ContainerHeaderText">Stories</span>
+                            </Col>
+                            <Col className="text-left text-lg-right text-md-right text-sm-left">
+                                <input type="submit" value="Inspired? Start a new story." id="newStoryBtn" onClick={() => {
+                                    this.newStoryButtonHandler();
+                                }}></input>
+                            </Col>
+                            <hr></hr>
                         </Row>
-                    )}
-                    no={(props) => (
                         <Row className="StoriesContainerBody">
-                            {this.state.stories
-                                ? this.state.stories.filter((story) => {
-                                    return story.isPublished;
-                                }).map((story) => {
-                                    return <StoryCard story={story} key={story._id} />
-                                })
-                                : <Skeleton count={1} width={300} />
+                            {
+                                this.state.stories
+                                    ? <Can
+                                        role={value.role}
+                                        perform="posts:edit"
+                                        data={{
+                                            username: value.authenticated ? value.user.username : null,
+                                            postOwner: this.user
+                                        }}
+                                        yes={() => (
+                                            <React.Fragment>
+                                                {   
+                                                    this.state.stories.length != 0
+                                                    ? this.state.stories.map((story) => {
+                                                        return (
+                                                            <StoryCard story={story} key={story._id} handleDeletion={this.handleDeletion} />
+                                                        )
+                                                    })
+                                                    : <p>
+                                                        Looks like you haven't published anything yet. Go on, tell the world your story.
+                                                    </p>
+                                                }
+                                            </React.Fragment>
+                                        )}
+                                        no={() => (
+                                            <React.Fragment>
+                                                {
+                                                    this.state.stories.filter((story) => {
+                                                        return story.isPublished;
+                                                    }).length != 0
+                                                        ? this.state.stories.filter((story) => {
+                                                            return story.isPublished;
+                                                        }).map((story) => {
+                                                            return <StoryCard story={story} key={story._id} />
+                                                        })
+                                                        : <p>Looks like this user hasnt published anything yet. Come back later!</p>
+                                                }
+                                            </React.Fragment>
+                                        )}
+                                    />
+                                    : <Skeleton count={1} height={100} />
                             }
+
                         </Row>
-                    )}
-                />
-            </Container>
+                    </Container>
+                )}
+            </AuthConsumer>
         )
     }
 };

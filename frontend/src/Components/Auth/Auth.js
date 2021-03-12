@@ -56,7 +56,7 @@ class Auth extends Component {
             role: authResult.role,
             token: authResult.token,
         });
-        localStorage.setItem('user', authResult.user);
+        localStorage.setItem('user', JSON.stringify(authResult.user));
         localStorage.setItem('authenticated', true);
         localStorage.setItem('role', authResult.role);
         localStorage.setItem('token', authResult.token);

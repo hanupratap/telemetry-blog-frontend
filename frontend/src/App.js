@@ -19,7 +19,6 @@ import Auth from './Components/Auth/Auth';
 import Authenticate from './Components/Authentication/Authenticate';
 import Can from './Components/Can/Can';
 import './App.css';
-import { Profiler } from 'react';
 
 /*
 	TODO:
@@ -50,15 +49,15 @@ class App extends Component {
 
 								<Route path="/signin" exact render={(props) => (
 									this.context.authenticated
-									? <Redirect to='/'/>
-									: <SignIn {...props} />
+										? <Redirect to='/' />
+										: <SignIn {...props} />
 								)}>
 								</Route>
 
 								<Route path="/signup" exact render={(props) => (
 									this.context.authenticated
-									? <Redirect to='/'/>
-									: <SignUp {...props} />
+										? <Redirect to='/' />
+										: <SignUp {...props} />
 								)}>
 								</Route>
 
@@ -74,8 +73,8 @@ class App extends Component {
 
 								<Route path="/story/new" exact render={(props) => (
 									this.context.authenticated
-									? <Editor {...props} mode="new" {...props} />
-									: <SignIn {...props} />
+										? <Editor {...props} mode="new" {...props} />
+										: <SignIn {...props} />
 								)}>
 								</Route>
 
@@ -85,10 +84,7 @@ class App extends Component {
 								</Route>
 
 								<Route path="/:username" render={(props) => (
-									this.context.authenticated
-									? <UserProfile me={true} {...props} />
-									: <UserProfile me={false} {...props} />
-									
+									<UserProfile me={false} {...props} />
 								)}>
 								</Route>
 

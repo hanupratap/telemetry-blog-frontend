@@ -5,7 +5,7 @@
     padding: 20px;
     font-family: "Cabin";
     font-size: 12pt;
-
+    box-shadow: 0px 0px 6px #00000050;
 }
 
 #headerGreeting {
@@ -30,18 +30,6 @@
     padding: 20px;
 }
 
-.SearchBar {
-    border: none;
-    outline: none !important;
-    /* background: #7a7a7a05; */
-    border-bottom: 2px solid #7a7a7a50;
-    width: 100%;
-    height: 40px;
-    padding: 10px;
-    /* border-radius: 5px; */
-}
-
-
 .Logout {
     background: #0A375Bdd;
     box-shadow: 0px 2px 5px #00000060;
@@ -51,4 +39,113 @@
     outline: none !important;
     border: none;
     font-weight: bold;
+}
+
+.SearchBar {
+    border: none;
+    outline: none !important;
+    background: #7a7a7a20;
+    color: #000000;
+    width: 100%;
+    height: 40px;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.SearchBar::placeholder {
+    color: #7a7a7a90;
+    text-align: center;
+}
+
+.SearchResultsContainer {
+    min-height: 50vh;
+    max-width: 100vw;
+    padding: 10px;
+    margin: 10px 10px 0px 0px;
+}
+
+.SearchResultsHeader {
+    padding: 20px;
+}
+
+.SearchHeaderText {
+    font-family: "Cabin";
+    font-size: 22pt;
+    align-items: baseline;
+    color: #000000;
+}
+
+.SearchHeaderClose {
+    font-size: 22pt;
+    font-weight: bold;
+    color: #000000;
+}
+
+.Open {
+    display: block;
+}
+
+.Closed {
+    display: none;
+}
+
+.SearchResults {
+    margin-right: 20px;
+    padding: 20px;
+    max-width: 100vw;
+    color: black;
+}
+
+.AuthorColumnHeader {
+    /* display: block; */
+    width: 100%;
+    color: #000000;
+    font-size: 18pt;
+    font-family: "Cabin";
+    padding-left: 20px;
+}
+
+.StoryColumnHeader {
+    /* display: block; */
+    width: 100%;
+    color: #000000;
+    font-size: 18pt;
+    font-family: "Cabin";
+    padding: 20px;
+}
+
+.AuthorResults {
+    max-height: 60vh;
+    padding: 10px;
+    border-radius: 10px;
+    overflow-y: auto;
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+    padding: 12px;
+    background: none;
+}
+
+::-webkit-resizer {
+    display: none;
+}
+
+::-webkit-scrollbar-track {
+    display: none; 
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #1a1a1a40;    /* color of the scroll thumb */
+    border-radius: 10px;       /* roundness of the scroll thumb */
+    border: 10px solid #00000000;  /* creates padding around scroll thumb */
+}
+
+.StoryResults {
+    max-height: 60vh;
+    padding: 10px;
+    border-radius: 10px;
+    overflow-y: auto;
 }
