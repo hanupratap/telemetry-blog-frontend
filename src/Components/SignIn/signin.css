@@ -23,6 +23,8 @@
 .ContentPanel {
     align-self: center;
     padding: 20px;
+    align-items: center;
+    direction: column;
 }
 
 input[type="submit"] {
@@ -54,6 +56,19 @@ input[type="submit"] {
 .StatusText {
     display: block;
     margin: auto;
+    width: 300px;
+    font-weight: bold;
+    font-size: 9pt;
+    transition: all 0.125s ease-in;
+}
+
+.FormFooter {
+    background: #0A537B;
+    display: flex;
+    direction: column;
+    align-items: center;
+    height: 10vh;
+    justify-self: flex-end;
     width: 300px;
     font-weight: bold;
     font-size: 9pt;

@@ -22,7 +22,7 @@ class UserProfile extends Component {
     componentDidMount(props) {
         console.log("this.context in UserProfile:\t", this.context);
         this.props.me ?
-            axios.get(`http://localhost:4000/api/user/me`,
+            axios.get(`https://telemetry-blog.herokuapp.com/api/user/me`,
                 {
                     headers: {
                         'x-auth-token': this.context.token
@@ -40,7 +40,7 @@ class UserProfile extends Component {
                     this.props.history.push('/404');
                 })
             :
-            axios.get(`http://localhost:4000/api/user/get/${this.props.match.params.username}`)
+            axios.get(`https://telemetry-blog.herokuapp.com/api/user/get/${this.props.match.params.username}`)
                 .then(response => {
                     const user = response.data.data;
                     this.setState({

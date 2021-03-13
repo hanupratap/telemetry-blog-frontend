@@ -12,7 +12,7 @@ const footer = () => {
                 <span>Made by Utkarsh Pant.</span>
             </Col>
             <Col lg={4} md={4} sm={12} className="text-lg-center text-md-left">
-                <span>twitter.com/Utkarshpant15</span>
+                <a href="https://twitter.com/utkarshpant15"><i class="fab fa-twitter"></i></a>
             </Col>
         </Row>
     )

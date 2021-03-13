@@ -55,7 +55,7 @@ class Editor extends Component {
     save() {
         if (this.props.mode != "view") {
             const dateModified = Date();
-            axios.post(`http://localhost:4000/api/story/update/${this.state.storyId}`, {
+            axios.post(`https://telemetry-blog.herokuapp.com/api/story/update/${this.state.storyId}`, {
                 owner: this.context.user.username,
                 content: {
                     title: this.state.storyTitle == "" ? "A story you saved without a title" : this.state.storyTitle,
@@ -95,7 +95,7 @@ class Editor extends Component {
         // if editing an existing story, retrieve it and check ownership
         // if all good, set editor values;
         if (this.props.mode == "edit") {
-            axios.get(`http://localhost:4000/api/story/get/${this.props.match.params.storyId}`)
+            axios.get(`https://telemetry-blog.herokuapp.com/api/story/get/${this.props.match.params.storyId}`)
                 .then(response => {
                     const story = response.data.data;
                     if (story.owner == this.context.user.username) {
@@ -126,7 +126,7 @@ class Editor extends Component {
         // the editor values, with all fields disabled;
         if (this.props.mode == "view") {
             this.quillRef.disable(true);
-            axios.get(`http://localhost:4000/api/story/get/${this.props.match.params.storyId}`)
+            axios.get(`https://telemetry-blog.herokuapp.com/api/story/get/${this.props.match.params.storyId}`)
                 .then(response => {
                     const story = response.data.data;
                     console.log("View story response", response.data);
@@ -151,7 +151,7 @@ class Editor extends Component {
         // then set its ID and values to state;
         // after this it is equivalent to editing an existing story;
         if (this.props.mode == "new") {
-            axios.post(`http://localhost:4000/api/story/new/`, {
+            axios.post(`https://telemetry-blog.herokuapp.com/api/story/new/`, {
                 owner: this.context.user.username,
                 storyTitle: "Give your story a title...",
                 storyBody: this.state.storyBody,

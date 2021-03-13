@@ -37,7 +37,7 @@ class Header extends Component {
 
     fireSearch = () => {
         this.setState({ loadingResults: true });
-        axios.get(`http://localhost:4000/api/search?querystring=${this.state.query}`)
+        axios.get(`https://telemetry-blog.herokuapp.com/api/search?querystring=${this.state.query}`)
             .then(response => {
                 this.setState({ results: response.data.data, loadingResults: false });
             })
@@ -66,7 +66,7 @@ class Header extends Component {
                                         <input
                                             type="text"
                                             className="SearchBar"
-                                            placeholder="Search by author, story titles/subtitles, and tags."
+                                            placeholder="Search by authors or story titles/subtitles."
                                             value={this.state.query}
                                             onClick={(event) => {
                                                 this.setState({ searchOpen: true });

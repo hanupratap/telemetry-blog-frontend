@@ -23,14 +23,14 @@ class SignInForm extends React.Component {
 
 	state = {
 		signInForm: {
-			email: {
-				type: "email",
-				placeholder: "support@telemetryblog.in",
+			username: {
+				type: "text",
+				placeholder: "What's your username?",
 				value: '',
 				validations: {
 					required: true,
 					min: 5,
-					max: 30
+					max: 35
 				},
 			},
 		},
@@ -52,8 +52,8 @@ class SignInForm extends React.Component {
 		updatedElement.value = event.target.value;
 		updatedSignInForm[inputIdentifier] = updatedElement;
 
-		this.setState({ 
-			signInForm: updatedSignInForm, 
+		this.setState({
+			signInForm: updatedSignInForm,
 			errors: {},
 			statusText: null
 		});
@@ -77,33 +77,21 @@ class SignInForm extends React.Component {
 	}
 
 	checkValidations(formData) {
-		const errors = this.state.errors;
-
+		let errors = this.state.errors;
 		for (let element in formData) {
+
 			const rules = this.state.signInForm[element].validations;
 			for (let rule in rules) {
-				if (rule == "required") {
-					errors[element] = (
-						this.state.signInForm[element].value.length > 0
-							? `The ${element} is required.`
-							: undefined
-					)
+				if (rule == "required" && this.state.signInForm[element].value.length == 0) {
+					errors[element] = `This is required`;
 				}
 
-				if (rule == "min") {
-					errors[element] = (
-						this.state.signInForm[element].value.length < parseInt(rules[rule])
-							? `The ${element} must be at least ${rules[rule]} characters long.`
-							: undefined
-					)
+				if (rule == "min" && this.state.signInForm[element].value.length < parseInt(rules[rule])) {
+					errors[element] = `This must be at least ${rules[rule]} character${rules[rule] == 1 ? '' : 's'} long.`;
 				}
 
-				if (rule == "max") {
-					errors[element] = (
-						this.state.signInForm[element].value.length > parseInt(rules[rule])
-							? `The ${element} must be lesser than ${rules[rule]} characters long.`
-							: undefined
-					)
+				if (rule == "max" && this.state.signInForm[element].value.length > parseInt(rules[rule])) {
+					errors[element] = `This must be lesser than ${rules[rule]} characters long.`;
 				}
 			}
 
@@ -117,7 +105,10 @@ class SignInForm extends React.Component {
 			}
 		}
 
+		console.log("Final errors", errors);
+
 		if (JSON.stringify(errors) != '{}') {
+			console.log("The following errors were detected", errors);
 			return errors;
 		} else {
 			return null;
@@ -169,6 +160,7 @@ class SignInForm extends React.Component {
 							{this.state.statusText}
 						</span>
 					</Row>
+					Don't have an account? <a href='/signup'>Sign up</a> for one.
 				</Col>
 			</Row>
 		)
@@ -177,7 +169,7 @@ class SignInForm extends React.Component {
 	triggerSignIn = (formData) => {
 		this.setState({ loading: true });
 		// console.log(formData);
-		axios.post("http://localhost:4000/api/user/signin", formData)
+		axios.post("https://telemetry-blog.herokuapp.com/api/user/signin", formData)
 			.then(response => {
 				this.setState({
 					statusText: "Check your email for the sign-in link. Don't forget to check your spam!",
@@ -185,11 +177,20 @@ class SignInForm extends React.Component {
 				})
 			})
 			.catch(err => {
-				// console.log(JSON.stringify(err.response.data));
-				this.setState({
-					statusText: "An error occured. Try again.",
-					loading: false
-				})
+				console.log(JSON.stringify(err.response.data.error));
+
+				// this.setState({
+				// 	statusText: "An error occured. Try again.",
+				// 	loading: false
+				// })
+
+				if (err.response.data.error.username == "NO_SUCH_USERNAME") {
+					this.setState({
+						errors: { username: "Sorry, this username doesn't seem right. If you don't have an account, sign up for one!" },
+						statusText: "An error occured. Try again.",
+						loading: false
+					})
+				}
 				// const errors = {};
 				// for (let field in err.response.error) {
 				// 	errors[field] = err.response.error[field];

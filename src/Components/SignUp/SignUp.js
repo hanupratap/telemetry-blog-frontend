@@ -56,7 +56,6 @@ class SignUpForm extends React.Component {
 				placeholder: "Your twitter username minus the @",
 				value: '',
 				validations: {
-					min: 1,
 					max: 20
 				},
 			},
@@ -97,40 +96,30 @@ class SignUpForm extends React.Component {
 
 		const validationErrors = this.checkValidations(formData);
 		if (validationErrors) {
+			console.log("Validation errors:", validationErrors);
 			this.setState({ errors: validationErrors });
 		} else {
 			this.triggerSignUp(formData);
+			// console.log("Sign up triggered");
 		}
 	}
 
 	checkValidations(formData) {
-		const errors = this.state.errors;
-
+		let errors = this.state.errors;
 		for (let element in formData) {
+
 			const rules = this.state.signUpForm[element].validations;
 			for (let rule in rules) {
-				if (rule == "required") {
-					errors[element] = (
-						this.state.signUpForm[element].value.length > 0
-							? `The ${element} is required.`
-							: undefined
-					)
-				}
-
-				if (rule == "min") {
-					errors[element] = (
-						this.state.signUpForm[element].value.length < parseInt(rules[rule])
-							? `The ${element} must be at least ${rules[rule]} characters long.`
-							: undefined
-					)
-				}
-
-				if (rule == "max") {
-					errors[element] = (
-						this.state.signUpForm[element].value.length > parseInt(rules[rule])
-							? `The ${element} must be lesser than ${rules[rule]} characters long.`
-							: undefined
-					)
+				if (rule == "required" && this.state.signUpForm[element].value.length == 0) {
+					errors[element] = `This is required`;
+				} 
+				
+				if (rule == "min" && this.state.signUpForm[element].value.length < parseInt(rules[rule])) {
+					errors[element] = `This must be at least ${rules[rule]} character${rules[rule] == 1 ? '' : 's'} long.`;
+				} 
+				
+				if (rule == "max" && this.state.signUpForm[element].value.length > parseInt(rules[rule])) {
+					errors[element] = `This must be lesser than ${rules[rule]} characters long.`;
 				}
 			}
 
@@ -144,7 +133,10 @@ class SignUpForm extends React.Component {
 			}
 		}
 
+		console.log("Final errors", errors);
+
 		if (JSON.stringify(errors) != '{}') {
+			console.log("The following errors were detected", errors);
 			return errors;
 		} else {
 			return null;
@@ -161,7 +153,7 @@ class SignUpForm extends React.Component {
 			})
 		}
 
-		return(
+		return (
 			<Row className="SignUp" >
 				<Col lg={6} md={6} sm={12} className="IllustrationPanel text-center">
 					<span><img className="Illustration" src="/images/PeopleIllustration2.svg"></img></span>
@@ -197,6 +189,7 @@ class SignUpForm extends React.Component {
 							{this.state.statusText}
 						</span>
 					</Row>
+					Already have an account? <a href='/signin'>Sign in.</a>
 				</Col>
 			</Row>
 		)
@@ -205,7 +198,7 @@ class SignUpForm extends React.Component {
 	triggerSignUp = (formData) => {
 		this.setState({ loading: true });
 		// console.log(formData);
-		axios.post("http://localhost:4000/api/user/signup", formData)
+		axios.post("https://telemetry-blog.herokuapp.com/api/user/signup", formData)
 			.then(response => {
 				console.log(response.data);
 				this.setState({
@@ -214,8 +207,10 @@ class SignUpForm extends React.Component {
 				})
 			})
 			.catch(err => {
-				// console.log(JSON.stringify(err.response.data));
+				console.log(JSON.stringify(err.response.data.error));
+				if (err.response.data.error == "USERNAME_TAKEN")
 				this.setState({
+					errors: {username: "This username is taken. Try another one?"},
 					statusText: "An error occured. Try again.",
 					loading: false
 				})
