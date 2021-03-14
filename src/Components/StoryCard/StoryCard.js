@@ -47,7 +47,7 @@ const Storycard = (props) => {
                         <span>{props.story.content.title}</span>
                     </div>
                     <div className="StoryCardSubtitle">
-                        <span >{props.story.content.subtitle ? props.story.content.subtitle.substring(0, 30) + '...' : null}</span>
+                        <span >{props.story.content.subtitle ? props.story.content.subtitle.substring(0, 30) + '...' : ""}</span>
                     </div>
                 </a>
             </div>
