@@ -223,7 +223,7 @@ class Editor extends Component {
                                                         className="EditorButton"
                                                         onClick={(event) => {
                                                             event.preventDefault();
-                                                            axios.post(`https://localhost:4000/api/story/${this.state.isPublished ? "unpublish" : "publish"}/${this.state.storyId}`)
+                                                            axios.post(`https://telemetry-blog.herokuapp.com/api/story/${this.state.isPublished ? "unpublish" : "publish"}/${this.state.storyId}`)
                                                                 .then(response => {
                                                                     window.location.reload();
                                                                 })
