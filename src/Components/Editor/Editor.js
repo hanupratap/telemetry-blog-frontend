@@ -219,7 +219,7 @@ class Editor extends Component {
                                                 <Col md={3} sm={12}>
                                                     <input
                                                         type="submit"
-                                                        value={this.state.isPublished ? `Unublish` : `Publish`}
+                                                        value={this.state.isPublished ? `Unpublish` : `Publish`}
                                                         className="EditorButton"
                                                         onClick={(event) => {
                                                             event.preventDefault();
@@ -251,25 +251,25 @@ class Editor extends Component {
                                                         </Col>
                                                         : null
                                                 }
-                                                <Col md={3} sm={12}>
-                                                    <a href={`/${this.state.storyOwner}`}>
-                                                        <input
-                                                            type="submit"
-                                                            value={`Back to ${this.state.storyOwner}'s stories.`}
-                                                            className="EditorButton"
-                                                            onClick={(event) => {
-                                                                // event.preventDefault();
-                                                                // this.props.history.push(`http://localhost:3000/story/edit/:storyId/${this.state.storyId}`);
-                                                                // console.log('Hello!', this.state.storyId);
-                                                            }}
-                                                        />
-                                                    </a>
-                                                </Col>
                                             </React.Fragment>
                                         )}
                                     />
                                     : null
                             }
+                            <Col md={3} sm={12}>
+                                <a href={`/${this.state.storyOwner}`}>
+                                    <input
+                                        type="submit"
+                                        value={`Back to ${this.state.storyOwner}'s stories.`}
+                                        className="EditorButton"
+                                        onClick={(event) => {
+                                            // event.preventDefault();
+                                            // this.props.history.push(`http://localhost:3000/story/edit/:storyId/${this.state.storyId}`);
+                                            // console.log('Hello!', this.state.storyId);
+                                        }}
+                                    />
+                                </a>
+                            </Col>
                         </Row>
                         <IdleTimer
                             timeout={1500}
@@ -279,10 +279,11 @@ class Editor extends Component {
                             onIdle={this.save}>
                             <Row className="EditorHeader">
                                 <input
+                                    type='textarea'
                                     className="StoryTitle"
                                     name="storyTitle"
                                     value={this.state.storyTitle}
-                                    placeholder="Give your story a title...."
+                                    placeholder="Give your story some title...."
                                     disabled={this.props.mode == "view" ? true : false}
                                     onChange={(event) => {
                                         event.preventDefault();

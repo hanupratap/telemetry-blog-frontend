@@ -37,12 +37,15 @@ class Header extends Component {
 
     fireSearch = () => {
         this.setState({ loadingResults: true });
+        alert("Search fired");
         axios.get(`https://telemetry-blog.herokuapp.com/api/search?querystring=${this.state.query}`)
             .then(response => {
                 this.setState({ results: response.data.data, loadingResults: false });
+                // alert(JSON.stringify(response.data.data));
             })
             .catch(err => {
                 console.log(err.response);
+                // alert(JSON.stringify(err.response));
             })
     }
 
@@ -62,7 +65,7 @@ class Header extends Component {
                                         ref={ref => { this.idleTimer = ref }}
                                         startOnMount={false}
                                         onIdle={this.fireSearch}
-                                        events={['keypress']}>
+                                        events={['keydown']}>
                                         <input
                                             type="text"
                                             className="SearchBar"
