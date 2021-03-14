@@ -19,7 +19,7 @@ const SearchStoryCard = (props) => {
                         <span>{props.story.content.title}</span>
                     </div>
                     <div className="SearchStorySubtitle">
-                        <span >{props.story.content.subtitle.substring(0, 30) + '...'}</span>
+                        <span >{props.story.content.subtitle ? props.story.content.subtitle.substring(0, 30) + '...' : ""}</span>
                     </div>
                 </a>
                 <div className="OwnerDetails">
