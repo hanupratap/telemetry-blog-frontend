@@ -154,7 +154,7 @@ class Editor extends Component {
             axios.post(`https://telemetry-blog.herokuapp.com/api/story/new/`, {
                 owner: this.context.user.username,
                 storyTitle: "Give your story a title...",
-                storyBody: this.state.storyBody,
+                storyBody: "This is where your story begins.",
                 storySubtitle: this.state.storySubitle,
                 tags: []
             }, {
@@ -275,7 +275,7 @@ class Editor extends Component {
                             timeout={1500}
                             ref={ref => { this.idleTimer = ref }}
                             startOnMount={false}
-                            events={["keydown"]}
+                            events={["keydown", "mouseup"]}
                             onIdle={this.save}>
                             <Row className="EditorHeader">
                                 <input
@@ -283,7 +283,7 @@ class Editor extends Component {
                                     className="StoryTitle"
                                     name="storyTitle"
                                     value={this.state.storyTitle}
-                                    placeholder="Give your story some title...."
+                                    placeholder="Give your story a title...."
                                     disabled={this.props.mode == "view" ? true : false}
                                     onChange={(event) => {
                                         event.preventDefault();

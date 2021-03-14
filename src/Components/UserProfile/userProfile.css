@@ -11,7 +11,7 @@
     border-top: 1px dashed #101010;
     border-bottom: 1px dashed #101010;
     color: #ffffff;
-    height: 50vh;
+    max-height: 60vh;
     padding: 20px;
 }
 

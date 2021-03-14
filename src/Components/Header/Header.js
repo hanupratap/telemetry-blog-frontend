@@ -37,7 +37,6 @@ class Header extends Component {
 
     fireSearch = () => {
         this.setState({ loadingResults: true });
-        alert("Search fired");
         axios.get(`https://telemetry-blog.herokuapp.com/api/search?querystring=${this.state.query}`)
             .then(response => {
                 this.setState({ results: response.data.data, loadingResults: false });

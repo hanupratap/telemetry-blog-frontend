@@ -45,6 +45,7 @@ a:hover {
 
 .UserCardFullName_small {
     font-size: 18pt;
+    font-weight: bold;
 }
 
 .UserCardUsernameRow_small {
